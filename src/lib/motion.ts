@@ -50,3 +50,25 @@ export function staggerContainer(stagger = 0.12, delayChildren = 0): Variants {
 
 /** Standard viewport trigger for scroll-based reveals: fire once, slightly before entering view. */
 export const viewportOnce = { once: true, margin: "-80px" } as const;
+
+/**
+ * Micro-interaction timings (seconds unless noted) — kept as named constants
+ * so hover/tap/expand/counter animations stay consistent across components.
+ */
+export const HOVER_DURATION = 0.2;
+export const TAP_DURATION = 0.15;
+export const EXPAND_DURATION = 0.35;
+export const ICON_SPIN_DURATION = 0.5;
+/** Count-up duration in milliseconds — used by `useCountUp`. */
+export const COUNTER_DURATION = 2000;
+
+export const hoverLift: Transition = {
+  type: "spring",
+  stiffness: 300,
+  damping: 22,
+};
+
+export const tapScale: Transition = {
+  duration: TAP_DURATION,
+  ease: EASE_OUT_PREMIUM,
+};

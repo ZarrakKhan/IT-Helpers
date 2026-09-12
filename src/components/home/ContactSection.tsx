@@ -89,7 +89,7 @@ export function ContactSection() {
                 <div>
                   <dt className="font-medium text-primary">Phone</dt>
                   <dd>
-                    <a href={COMPANY.phoneHref} className="text-muted hover:text-secondary">
+                    <a href={COMPANY.phoneHref} className="link-animated text-muted hover:text-secondary">
                       {COMPANY.phone}
                     </a>
                   </dd>
@@ -100,7 +100,7 @@ export function ContactSection() {
                 <div>
                   <dt className="font-medium text-primary">Email</dt>
                   <dd>
-                    <a href={`mailto:${COMPANY.email}`} className="text-muted hover:text-secondary">
+                    <a href={`mailto:${COMPANY.email}`} className="link-animated text-muted hover:text-secondary">
                       {COMPANY.email}
                     </a>
                   </dd>
@@ -171,7 +171,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <Button type="submit" size="lg" className="mt-6 w-full" disabled={status === "submitting"}>
+            <Button type="submit" size="lg" className="mt-6 w-full" loading={status === "submitting"}>
               {status === "submitting" ? "Sending..." : "Send Message"}
             </Button>
 

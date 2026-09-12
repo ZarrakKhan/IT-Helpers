@@ -14,7 +14,7 @@ export function Navigation({ className }: NavigationProps) {
           <li key={link.href}>
             <Link
               href={link.href}
-              className="text-sm font-medium text-neutral-100/80 transition-colors hover:text-white"
+              className="link-animated text-sm font-medium text-neutral-100/80 transition-colors hover:text-white"
             >
               {link.label}
             </Link>

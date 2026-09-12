@@ -52,6 +52,8 @@ export interface Service {
     | "remote"
     | "consulting"
     | "m365";
+  /** Shown in the service card's expandable "Learn more" details. */
+  whatsIncluded: string[];
 }
 
 export const SERVICES: Service[] = [
@@ -60,60 +62,110 @@ export const SERVICES: Service[] = [
     name: "IT Support",
     description: "Desktop, application, and general IT support for your team.",
     icon: "support",
+    whatsIncluded: [
+      "Help desk & troubleshooting",
+      "Software installation & updates",
+      "Hardware diagnostics & repair coordination",
+    ],
   },
   {
     slug: "microsoft-365",
     name: "Microsoft 365",
     description: "M365, Entra ID, Intune, and Active Directory setup & management.",
     icon: "m365",
+    whatsIncluded: [
+      "M365 tenant setup & licensing",
+      "Entra ID (Azure AD) configuration",
+      "Intune device management & policies",
+    ],
   },
   {
     slug: "cloud-solutions",
     name: "Cloud Solutions",
     description: "Azure migrations, cloud infrastructure, and cloud services.",
     icon: "cloud",
+    whatsIncluded: [
+      "Azure environment setup",
+      "Cloud migration planning & execution",
+      "Ongoing cloud cost & performance review",
+    ],
   },
   {
     slug: "networking",
     name: "Networking",
     description: "Network setup, configuration, and infrastructure that just works.",
     icon: "network",
+    whatsIncluded: [
+      "Network design & cabling",
+      "Router, switch & firewall configuration",
+      "Wi-Fi coverage optimisation",
+    ],
   },
   {
     slug: "cybersecurity",
     name: "Cybersecurity",
     description: "Endpoint security, MFA, access governance, and security consulting.",
     icon: "shield",
+    whatsIncluded: [
+      "Endpoint protection deployment",
+      "Multi-factor authentication rollout",
+      "Access governance & security audits",
+    ],
   },
   {
     slug: "device-setup",
     name: "Device Setup",
     description: "New computer deployments, device configuration, and hardware support.",
     icon: "device",
+    whatsIncluded: [
+      "New device provisioning & imaging",
+      "Peripheral & software configuration",
+      "Data transfer from old devices",
+    ],
   },
   {
     slug: "system-migrations",
     name: "System Migrations",
     description: "Server migrations, system upgrades, and data migrations.",
     icon: "migration",
+    whatsIncluded: [
+      "Server & platform migrations",
+      "Data migration with integrity checks",
+      "Post-migration testing & support",
+    ],
   },
   {
     slug: "user-management",
     name: "User Management",
     description: "Onboarding, offboarding, access management, and license management.",
     icon: "users",
+    whatsIncluded: [
+      "Onboarding & offboarding workflows",
+      "License allocation & management",
+      "Access reviews & permission audits",
+    ],
   },
   {
     slug: "remote-onsite-support",
     name: "Remote & On-Site Support",
     description: "Flexible support options tailored to your needs.",
     icon: "remote",
+    whatsIncluded: [
+      "Remote troubleshooting sessions",
+      "On-site visits for hands-on issues",
+      "Flexible scheduling around your business",
+    ],
   },
   {
     slug: "it-consulting",
     name: "IT Consulting",
     description: "Strategic IT consulting and advisory services.",
     icon: "consulting",
+    whatsIncluded: [
+      "IT strategy & roadmap planning",
+      "Technology stack recommendations",
+      "Budget & vendor advisory",
+    ],
   },
 ];
 

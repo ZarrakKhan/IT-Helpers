@@ -1,15 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Timer, Users2, Wrench } from "lucide-react";
+import { ShieldCheck, Timer, Users2, Wrench, type LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import { SERVICES } from "@/lib/constants";
+import { useCountUp } from "@/hooks/useCountUp";
 
-const stats = [
-  { value: "10+", label: "IT service areas covered", icon: Wrench },
-  { value: "<1hr", label: "Typical response time", icon: Timer },
-  { value: "100%", label: "Remote & on-site coverage", icon: Users2 },
+interface Stat {
+  label: string;
+  icon: LucideIcon;
+  countTo?: number;
+  prefix?: string;
+  suffix?: string;
+  /** Static display value for stats that aren't a plain count (e.g. "AU"). */
+  value?: string;
+}
+
+const stats: Stat[] = [
+  { countTo: SERVICES.length, suffix: "+", label: "IT service areas covered", icon: Wrench },
+  { countTo: 60, prefix: "<", suffix: " min", label: "Typical response time", icon: Timer },
+  { countTo: 100, suffix: "%", label: "Remote & on-site coverage", icon: Users2 },
   { value: "AU", label: "Sydney-based & local", icon: ShieldCheck },
 ];
 
@@ -19,6 +31,17 @@ const bulletPoints = [
   "Flexible remote and on-site support",
   "Transparent pricing and scoping",
 ];
+
+function StatValue({ countTo, prefix = "", suffix = "" }: Pick<Stat, "countTo" | "prefix" | "suffix">) {
+  const { ref, value } = useCountUp<HTMLParagraphElement>({ end: countTo ?? 0 });
+  return (
+    <p ref={ref} className="text-3xl font-bold tabular-nums text-primary">
+      {prefix}
+      {Math.round(value)}
+      {suffix}
+    </p>
+  );
+}
 
 /** Trust / credibility section — quick-scan stats that build confidence. */
 export function TrustSection() {
@@ -70,15 +93,21 @@ export function TrustSection() {
             variants={staggerContainer(0.1)}
             className="grid grid-cols-2 gap-4 sm:gap-6"
           >
-            {stats.map(({ value, label, icon: Icon }) => (
+            {stats.map((stat) => (
               <motion.div
-                key={label}
+                key={stat.label}
                 variants={fadeUp}
-                className="rounded-lg border border-border bg-surface p-6 text-center"
+                className="rounded-lg border border-border bg-surface p-6"
               >
-                <Icon className="mx-auto h-6 w-6 text-secondary" aria-hidden />
-                <p className="mt-3 text-3xl font-bold text-primary">{value}</p>
-                <p className="mt-1 text-xs text-muted">{label}</p>
+                <stat.icon className="h-6 w-6 text-secondary" aria-hidden />
+                <div className="mt-3 text-right">
+                  {stat.countTo !== undefined ? (
+                    <StatValue countTo={stat.countTo} prefix={stat.prefix} suffix={stat.suffix} />
+                  ) : (
+                    <p className="text-3xl font-bold text-primary">{stat.value}</p>
+                  )}
+                  <p className="mt-1 text-xs text-muted">{stat.label}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>

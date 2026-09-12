@@ -44,7 +44,7 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="transition-colors hover:text-white">
+                  <Link href={link.href} className="link-animated transition-colors hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -57,7 +57,7 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm">
               {SERVICES.slice(0, 5).map((service) => (
                 <li key={service.slug}>
-                  <Link href="/#services" className="transition-colors hover:text-white">
+                  <Link href="/#services" className="link-animated transition-colors hover:text-white">
                     {service.name}
                   </Link>
                 </li>
@@ -74,13 +74,13 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0 text-secondary" aria-hidden />
-                <a href={COMPANY.phoneHref} className="transition-colors hover:text-white">
+                <a href={COMPANY.phoneHref} className="link-animated transition-colors hover:text-white">
                   {COMPANY.phone}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0 text-secondary" aria-hidden />
-                <a href={`mailto:${COMPANY.email}`} className="transition-colors hover:text-white">
+                <a href={`mailto:${COMPANY.email}`} className="link-animated transition-colors hover:text-white">
                   {COMPANY.email}
                 </a>
               </li>
@@ -93,10 +93,10 @@ export function Footer() {
             &copy; {year} {COMPANY.name}. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="transition-colors hover:text-white">
+            <Link href="/privacy" className="link-animated transition-colors hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-white">
+            <Link href="/terms" className="link-animated transition-colors hover:text-white">
               Terms of Service
             </Link>
           </div>

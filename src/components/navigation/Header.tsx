@@ -49,7 +49,7 @@ export function Header() {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={COMPANY.phoneHref}
-            className="text-sm font-medium text-neutral-100/80 transition-colors hover:text-white"
+            className="link-animated text-sm font-medium text-neutral-100/80 transition-colors hover:text-white"
           >
             {COMPANY.phone}
           </a>

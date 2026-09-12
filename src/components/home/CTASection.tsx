@@ -39,7 +39,7 @@ export function CTASection() {
             </Button>
             <a
               href={COMPANY.phoneHref}
-              className="text-sm font-semibold text-neutral-100/80 underline-offset-4 transition-colors hover:text-white hover:underline"
+              className="link-animated text-sm font-semibold text-neutral-100/80 transition-colors hover:text-white"
             >
               or call {COMPANY.phone}
             </a>
