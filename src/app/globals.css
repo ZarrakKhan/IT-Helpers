@@ -1,0 +1,78 @@
+@import "../styles/design-tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    @apply bg-secondary/30 text-primary;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-secondary ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Reusable "connection line" background used across hero/network visuals */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary-light to-secondary;
+  }
+
+  .glass-panel {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
+  }
+}
+
+@layer utilities {
+  .stagger-1 {
+    animation-delay: 80ms;
+  }
+  .stagger-2 {
+    animation-delay: 160ms;
+  }
+  .stagger-3 {
+    animation-delay: 240ms;
+  }
+  .stagger-4 {
+    animation-delay: 320ms;
+  }
+  .stagger-5 {
+    animation-delay: 400ms;
+  }
+  .stagger-6 {
+    animation-delay: 480ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
