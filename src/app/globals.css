@@ -11,11 +11,16 @@
 
   html {
     scroll-behavior: smooth;
+    /* Prevent any single element from forcing horizontal scroll on mobile. */
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
+    overflow-x: hidden;
+    /* Keeps content clear of the home-indicator / bottom bar on notched devices. */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   ::selection {

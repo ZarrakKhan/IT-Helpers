@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, ChevronDown, type LucideIcon } from "lucide-react";
 import type { Service } from "@/lib/constants";
@@ -15,6 +16,7 @@ interface ServiceCardProps {
  * Interactive service card: lifts and highlights on hover, and expands
  * inline (no modal) to reveal "what's included" details — the same
  * interaction on touch and desktop keeps behavior predictable everywhere.
+ * The title links to the full service detail page.
  */
 export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
   const [expanded, setExpanded] = useState(false);
@@ -26,7 +28,7 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
       variants={fadeUp}
       whileHover={reduceMotion ? undefined : { y: -8 }}
       transition={hoverLift}
-      className="group relative flex flex-col rounded-lg border border-border bg-background p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg hover:border-secondary/40 focus-within:shadow-lg"
+      className="group relative flex flex-col rounded-lg border border-border bg-background p-5 shadow-sm transition-shadow duration-300 hover:shadow-lg hover:border-secondary/40 focus-within:shadow-lg sm:p-6"
     >
       <div
         aria-hidden
@@ -41,7 +43,11 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
         <Icon className="h-5 w-5" aria-hidden />
       </motion.div>
 
-      <h3 className="relative mt-4 text-lg font-semibold text-primary">{service.name}</h3>
+      <h3 className="relative mt-4 text-lg font-semibold text-primary">
+        <Link href={`/services/${service.slug}`} className="link-animated hover:text-secondary">
+          {service.name}
+        </Link>
+      </h3>
       <p className="relative mt-2 text-sm text-muted">{service.description}</p>
 
       <button
@@ -49,7 +55,7 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
         aria-controls={detailsId}
-        className="relative mt-4 inline-flex min-h-[44px] items-center gap-1.5 self-start text-sm font-semibold text-secondary transition-colors hover:text-secondary-dark"
+        className="relative mt-4 inline-flex min-h-[48px] items-center gap-1.5 self-start text-sm font-semibold text-secondary transition-colors hover:text-secondary-dark"
       >
         {expanded ? "Show less" : "Learn more"}
         <ChevronDown
@@ -81,13 +87,13 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
                   ))}
                 </ul>
               </div>
-              <a
-                href="/#contact"
-                className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-semibold text-secondary transition-colors hover:text-secondary-dark"
+              <Link
+                href={`/services/${service.slug}#contact`}
+                className="inline-flex min-h-[48px] items-center gap-1.5 text-sm font-semibold text-secondary transition-colors hover:text-secondary-dark"
               >
                 Get this service
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

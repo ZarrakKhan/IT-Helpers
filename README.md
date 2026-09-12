@@ -19,16 +19,29 @@ src/
     layout.tsx        Root layout: fonts, metadata, JSON-LD, Header/Footer
     page.tsx           Homepage: composes the section components
     globals.css        Tailwind layers + design tokens import
+    robots.ts           robots.txt (Next.js metadata route)
+    sitemap.ts           sitemap.xml — includes every service page
+    services/
+      page.tsx           /services index — grid of every service
+      [slug]/page.tsx     /services/<slug> — one page per service (SSG)
   components/
     ui/                Reusable primitives: Button, Container, Section
     navigation/         Header, Navigation, MobileMenu
     common/             Footer
-    home/               Homepage sections: Hero, Services, TrustSection,
-                        CTASection, ContactSection, NetworkVisual
+    home/               Homepage sections: Hero, Services, ServiceCard,
+                        TrustSection, CTASection, ContactSection, NetworkVisual
+    services/            Service detail page pieces: Breadcrumb, ServiceHero,
+                        ServiceContentSections, RelatedServices
+    forms/               ContactForm + FormInput — reused on the homepage
+                        and every service page
+  hooks/
+    useCountUp.ts        Viewport-triggered count-up animation (TrustSection)
   lib/
     constants.ts        Company info, services, nav links — THE rebrand file
     seo.ts              JSON-LD schema builders (Organization, LocalBusiness,
                         Service, Breadcrumb)
+    service-icons.ts    Maps each Service.icon key to its lucide-react icon
+    motion.ts            Shared Framer Motion variants & timing constants
     utils.ts            Small class-name helper (`cn`)
   styles/
     design-tokens.css   Brand colors, spacing, shadows, motion timings
@@ -66,7 +79,9 @@ This project is built so it can be rebranded for a different client with
 minimal file touches:
 
 1. **Company info & services** — edit `src/lib/constants.ts` (`COMPANY`,
-   `SERVICES`, `NAV_LINKS`, `CTA`). Every component reads from here.
+   `SERVICES`, `NAV_LINKS`, `CTA`). Every component reads from here, including
+   the `/services/<slug>` pages — add or remove a `SERVICES` entry and its
+   page, sitemap entry, and homepage card update automatically.
 2. **Brand colors, spacing, shadows, motion** — edit
    `src/styles/design-tokens.css`. Colors are consumed via Tailwind classes
    (`bg-primary`, `text-secondary`, etc.) that map to these CSS variables in

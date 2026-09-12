@@ -1,37 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Headset,
-  Cloud,
-  Network,
-  ShieldCheck,
-  Laptop,
-  ArrowLeftRight,
-  Users,
-  MapPinned,
-  Lightbulb,
-  Grid3x3,
-  type LucideIcon,
-} from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { ServiceCard } from "@/components/home/ServiceCard";
-import { SERVICES, type Service } from "@/lib/constants";
+import { SERVICES } from "@/lib/constants";
+import { SERVICE_ICON_MAP } from "@/lib/service-icons";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
-
-const iconMap: Record<Service["icon"], LucideIcon> = {
-  support: Headset,
-  cloud: Cloud,
-  network: Network,
-  shield: ShieldCheck,
-  device: Laptop,
-  migration: ArrowLeftRight,
-  users: Users,
-  remote: MapPinned,
-  consulting: Lightbulb,
-  m365: Grid3x3,
-};
 
 /** Grid showcase of IT Helpers' services with icon, name, and description. */
 export function Services() {
@@ -68,10 +43,10 @@ export function Services() {
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.08)}
-          className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >
           {SERVICES.map((service) => (
-            <ServiceCard key={service.slug} service={service} icon={iconMap[service.icon]} />
+            <ServiceCard key={service.slug} service={service} icon={SERVICE_ICON_MAP[service.icon]} />
           ))}
         </motion.div>
       </Container>

@@ -23,10 +23,11 @@ const variantStyles: Record<ButtonVariant, string> = {
   ghost: "text-foreground hover:bg-surface bg-transparent",
 };
 
+// Minimum 48px min-height on every size keeps CTAs comfortably tap-friendly on mobile.
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "h-9 px-4 text-sm",
-  md: "h-11 px-6 text-sm",
-  lg: "h-14 px-8 text-base",
+  sm: "min-h-[48px] px-4 text-sm",
+  md: "min-h-[48px] px-6 text-sm",
+  lg: "min-h-[56px] px-8 text-base",
 };
 
 interface SharedProps {

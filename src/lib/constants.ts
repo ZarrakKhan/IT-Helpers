@@ -52,8 +52,14 @@ export interface Service {
     | "remote"
     | "consulting"
     | "m365";
-  /** Shown in the service card's expandable "Learn more" details. */
+  /** Shown in the service card's expandable "Learn more" details, and on the service detail page. */
   whatsIncluded: string[];
+  /** Why choose IT Helpers for this specific service — shown on the detail page. */
+  benefits: string[];
+  /** Typical scenarios this service fits — shown on the detail page. */
+  useCases: string[];
+  /** ~155-160 char summary used for the detail page's meta description. */
+  metaDescription: string;
 }
 
 export const SERVICES: Service[] = [
@@ -67,6 +73,18 @@ export const SERVICES: Service[] = [
       "Software installation & updates",
       "Hardware diagnostics & repair coordination",
     ],
+    benefits: [
+      "One point of contact for day-to-day IT issues",
+      "Fast, jargon-free troubleshooting",
+      "Proactive monitoring to catch problems early",
+    ],
+    useCases: [
+      "Small teams without an in-house IT department",
+      "Businesses experiencing recurring device or software issues",
+      "Growing teams that need a reliable support line",
+    ],
+    metaDescription:
+      "Desktop, application, and general IT support for Sydney businesses. Fast troubleshooting and a reliable single point of contact from IT Helpers.",
   },
   {
     slug: "microsoft-365",
@@ -78,6 +96,18 @@ export const SERVICES: Service[] = [
       "Entra ID (Azure AD) configuration",
       "Intune device management & policies",
     ],
+    benefits: [
+      "Correctly licensed from day one — no wasted spend",
+      "Centralised identity and device management",
+      "Ongoing tenant health checks",
+    ],
+    useCases: [
+      "Businesses migrating from on-premises email or file shares",
+      "Teams needing centralised device & access policies",
+      "Organisations preparing for a security audit",
+    ],
+    metaDescription:
+      "Microsoft 365, Entra ID, Intune, and Active Directory setup and management for Sydney businesses — correctly licensed and centrally managed.",
   },
   {
     slug: "cloud-solutions",
@@ -89,6 +119,18 @@ export const SERVICES: Service[] = [
       "Cloud migration planning & execution",
       "Ongoing cloud cost & performance review",
     ],
+    benefits: [
+      "A migration plan scoped to your actual usage",
+      "Reduced infrastructure overhead",
+      "Cost visibility instead of surprise cloud bills",
+    ],
+    useCases: [
+      "Businesses retiring an aging on-premises server",
+      "Teams that need infrastructure to scale with growth",
+      "Organisations consolidating multiple systems into one cloud environment",
+    ],
+    metaDescription:
+      "Azure migrations, cloud infrastructure, and ongoing cloud cost review for Sydney businesses — a migration plan scoped to how you actually work.",
   },
   {
     slug: "networking",
@@ -100,6 +142,18 @@ export const SERVICES: Service[] = [
       "Router, switch & firewall configuration",
       "Wi-Fi coverage optimisation",
     ],
+    benefits: [
+      "A network designed for your floor plan, not a generic template",
+      "Fewer dropouts and dead zones",
+      "Documentation so future changes are quick",
+    ],
+    useCases: [
+      "New office fit-outs or relocations",
+      "Sites with poor Wi-Fi coverage or frequent dropouts",
+      "Businesses adding VoIP or many networked devices",
+    ],
+    metaDescription:
+      "Network design, cabling, and Wi-Fi optimisation for Sydney offices. Reliable infrastructure from IT Helpers, built for how your team actually works.",
   },
   {
     slug: "cybersecurity",
@@ -111,6 +165,18 @@ export const SERVICES: Service[] = [
       "Multi-factor authentication rollout",
       "Access governance & security audits",
     ],
+    benefits: [
+      "Security built into daily operations, not bolted on",
+      "Clear visibility into who has access to what",
+      "Practical guidance, not scare tactics",
+    ],
+    useCases: [
+      "Businesses handling sensitive client or financial data",
+      "Teams preparing for cyber insurance requirements",
+      "Organisations without MFA or a formal access review process",
+    ],
+    metaDescription:
+      "Endpoint security, MFA rollout, and access governance for Sydney businesses. Practical cybersecurity from IT Helpers, built into daily operations.",
   },
   {
     slug: "device-setup",
@@ -122,6 +188,18 @@ export const SERVICES: Service[] = [
       "Peripheral & software configuration",
       "Data transfer from old devices",
     ],
+    benefits: [
+      "New starters productive on day one",
+      "Consistent configuration across every device",
+      "No lost data during a hardware refresh",
+    ],
+    useCases: [
+      "Onboarding new employees",
+      "Bulk hardware refreshes across a team",
+      "Replacing an ageing or failing device",
+    ],
+    metaDescription:
+      "New computer deployments, device configuration, and hardware support for Sydney businesses — new starters productive from day one.",
   },
   {
     slug: "system-migrations",
@@ -133,6 +211,18 @@ export const SERVICES: Service[] = [
       "Data migration with integrity checks",
       "Post-migration testing & support",
     ],
+    benefits: [
+      "Migrations planned around your business hours",
+      "Data integrity checked at every step",
+      "Support on standby after go-live",
+    ],
+    useCases: [
+      "Retiring end-of-life servers or software",
+      "Consolidating systems after a merger or acquisition",
+      "Upgrading a platform that's outgrown its current setup",
+    ],
+    metaDescription:
+      "Server, system, and data migrations for Sydney businesses — planned around your business hours, with integrity checks at every step.",
   },
   {
     slug: "user-management",
@@ -144,6 +234,18 @@ export const SERVICES: Service[] = [
       "License allocation & management",
       "Access reviews & permission audits",
     ],
+    benefits: [
+      "New starters and leavers processed consistently",
+      "No orphaned accounts or unused licenses",
+      "Clear audit trail for access changes",
+    ],
+    useCases: [
+      "Businesses with regular staff turnover",
+      "Teams managing licenses across multiple systems",
+      "Organisations needing a formal offboarding checklist",
+    ],
+    metaDescription:
+      "Onboarding, offboarding, and license management for Sydney businesses — consistent processes so no account or license slips through the cracks.",
   },
   {
     slug: "remote-onsite-support",
@@ -155,6 +257,18 @@ export const SERVICES: Service[] = [
       "On-site visits for hands-on issues",
       "Flexible scheduling around your business",
     ],
+    benefits: [
+      "Most issues resolved remotely, fast",
+      "On-site visits when hands-on work is needed",
+      "Scheduling that fits around your operating hours",
+    ],
+    useCases: [
+      "Distributed or hybrid teams",
+      "Hardware issues that need a technician on-site",
+      "Businesses wanting a mix of remote and in-person support",
+    ],
+    metaDescription:
+      "Remote and on-site IT support for Sydney businesses — most issues resolved remotely, with technicians on-site when hands-on work is needed.",
   },
   {
     slug: "it-consulting",
@@ -166,8 +280,35 @@ export const SERVICES: Service[] = [
       "Technology stack recommendations",
       "Budget & vendor advisory",
     ],
+    benefits: [
+      "A roadmap tied to your business goals, not just tech trends",
+      "Vendor-neutral recommendations",
+      "Budget planning that avoids surprise costs",
+    ],
+    useCases: [
+      "Businesses planning next year's IT budget",
+      "Teams evaluating a major platform change",
+      "Organisations without an internal IT strategy function",
+    ],
+    metaDescription:
+      "Strategic IT consulting and advisory services for Sydney businesses — a technology roadmap tied to your goals, not just the latest trends.",
   },
 ];
+
+export function getServiceBySlug(slug: string): Service | undefined {
+  return SERVICES.find((service) => service.slug === slug);
+}
+
+/** Up to `limit` other services, for a "related services" section on a detail page. */
+export function getRelatedServices(slug: string, limit = 3): Service[] {
+  const currentIndex = SERVICES.findIndex((service) => service.slug === slug);
+  const others = SERVICES.filter((service) => service.slug !== slug);
+  if (currentIndex === -1) return others.slice(0, limit);
+
+  // Rotate the start point so different services surface different "related" picks.
+  const rotated = [...others.slice(currentIndex), ...others.slice(0, currentIndex)];
+  return rotated.slice(0, limit);
+}
 
 export interface NavLink {
   label: string;
@@ -175,7 +316,7 @@ export interface NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services" },
   { label: "Why Us", href: "/#why-us" },
   { label: "Contact", href: "/#contact" },
 ];

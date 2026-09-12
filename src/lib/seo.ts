@@ -86,15 +86,15 @@ export function generateServiceSchema(service: Service) {
     "@type": "Service",
     serviceType: service.name,
     name: service.name,
-    description: service.description,
+    description: service.metaDescription ?? service.description,
     provider: {
       "@type": "Organization",
       name: COMPANY.name,
       url: SITE_URL,
     },
     areaServed: {
-      "@type": "City",
-      name: "Sydney",
+      "@type": "Country",
+      name: "Australia",
     },
     url: `${SITE_URL}/services/${service.slug}`,
   };
