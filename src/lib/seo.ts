@@ -1,4 +1,4 @@
-import { COMPANY, SERVICES, type Service } from "./constants";
+import { COMPANY, SERVICES, TEAM_MEMBERS, TESTIMONIALS, type FaqItem, type Service, type TeamMember } from "./constants";
 
 /**
  * Structured data (schema.org JSON-LD) helpers — Australian local business.
@@ -102,6 +102,60 @@ export function generateServiceSchema(service: Service) {
 
 export function generateAllServicesSchema() {
   return SERVICES.map(generateServiceSchema);
+}
+
+export function generateFaqSchema(items: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+export function generateReviewSchema() {
+  return TESTIMONIALS.map((testimonial) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: testimonial.rating,
+      bestRating: 5,
+    },
+    author: {
+      "@type": "Person",
+      name: testimonial.name,
+    },
+    reviewBody: testimonial.quote,
+    itemReviewed: {
+      "@type": "Organization",
+      name: COMPANY.name,
+    },
+  }));
+}
+
+export function generatePersonSchema(member: TeamMember) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: member.name,
+    jobTitle: member.role,
+    worksFor: {
+      "@type": "Organization",
+      name: COMPANY.name,
+      url: SITE_URL,
+    },
+  };
+}
+
+export function generateTeamSchema() {
+  return TEAM_MEMBERS.map(generatePersonSchema);
 }
 
 export interface Breadcrumb {

@@ -310,6 +310,130 @@ export function getRelatedServices(slug: string, limit = 3): Service[] {
   return rotated.slice(0, limit);
 }
 
+export interface Testimonial {
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  rating: number;
+}
+
+/**
+ * TEMPLATE CUSTOMIZATION POINT: replace with real client testimonials
+ * before launch — names, roles, and companies below are placeholders.
+ */
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    name: "Sarah Mitchell",
+    role: "Operations Manager",
+    company: "Local Retail Business",
+    quote:
+      "IT Helpers came in and sorted out issues that had been dragging on for months. They explained everything in plain English, and our systems have been noticeably more reliable ever since. It's a relief to have a team we can just call and trust.",
+    rating: 5,
+  },
+  {
+    name: "David Nguyen",
+    role: "Practice Manager",
+    company: "Professional Services Firm",
+    quote:
+      "What stands out is how responsive they are — a real person picks up the phone and actually fixes the problem. The Microsoft 365 migration was smooth and happened outside business hours so it barely disrupted our team.",
+    rating: 5,
+  },
+  {
+    name: "Amelia Ferreira",
+    role: "Director",
+    company: "Hospitality Group",
+    quote:
+      "We went from constant Wi-Fi dropouts across our sites to a network that just works. IT Helpers mapped out exactly what we needed instead of overselling us, which we really appreciated.",
+    rating: 5,
+  },
+  {
+    name: "Michael Tran",
+    role: "Finance Manager",
+    company: "Accounting Practice",
+    quote:
+      "Security was our biggest concern given the data we handle. They rolled out MFA and cleaned up our access permissions without slowing anyone down. Genuinely feel more confident about our setup now.",
+    rating: 5,
+  },
+  {
+    name: "Rebecca Hall",
+    role: "Office Manager",
+    company: "Healthcare Clinic",
+    quote:
+      "Onboarding new staff used to be a whole afternoon of setup. Now it's handled before their first day. Small thing, but it's made a real difference to how smoothly our clinic runs.",
+    rating: 5,
+  },
+];
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    question: "What's included in your IT support?",
+    answer:
+      "Our IT support covers desktop and application troubleshooting, hardware support, software installation and updates, and general help-desk assistance for your whole team. If something in your day-to-day tech isn't working, it's covered.",
+    category: "IT Support",
+  },
+  {
+    question: "How fast is your response time?",
+    answer:
+      "We aim to respond to most support requests within an hour during business hours. Urgent issues affecting your whole team are prioritised and typically actioned even faster.",
+    category: "IT Support",
+  },
+  {
+    question: "Do you offer 24/7 support?",
+    answer:
+      "Our standard support hours are Monday to Friday, 9am-5pm. If your business needs after-hours or weekend coverage, let us know when you get in touch — we can scope a support plan around it.",
+    category: "IT Support",
+  },
+  {
+    question: "Can you help with Microsoft 365 and Entra ID?",
+    answer:
+      "Yes — we set up and manage M365 tenants, Entra ID (Azure AD), Intune device policies, and Active Directory. We also handle licensing so you're not paying for seats you don't need.",
+    category: "Microsoft 365",
+  },
+  {
+    question: "Do you offer on-site support, or is everything remote?",
+    answer:
+      "Both. Most issues can be resolved remotely, which is usually the fastest option. When something needs hands-on attention — new hardware, cabling, or a physical fault — we'll come to you.",
+    category: "IT Support",
+  },
+  {
+    question: "How much does IT support cost?",
+    answer:
+      "It depends on your team size, systems, and how much ongoing management you need. We scope pricing after an initial conversation about your setup, rather than quoting blind — reach out and we'll put together a plan.",
+    category: "Pricing",
+  },
+  {
+    question: "Can you migrate our existing systems and data?",
+    answer:
+      "Yes — server migrations, cloud migrations, and data migrations are all things we handle regularly, with integrity checks at each step and testing before we consider a migration complete.",
+    category: "Cloud & Migrations",
+  },
+  {
+    question: "What security measures do you put in place?",
+    answer:
+      "We deploy endpoint protection, roll out multi-factor authentication, and run access governance reviews so you know exactly who can access what. Security is built into how we set things up, not an afterthought.",
+    category: "Cybersecurity",
+  },
+  {
+    question: "Do you work with businesses that don't have any in-house IT staff?",
+    answer:
+      "That's most of who we work with — small and mid-sized teams that need reliable IT support without hiring a full-time IT person. We act as your IT department, as much or as little as you need.",
+    category: "IT Support",
+  },
+  {
+    question: "What happens when a new employee joins or leaves?",
+    answer:
+      "We handle onboarding and offboarding as a standard workflow — provisioning accounts, licenses, and device access when someone joins, and revoking access cleanly when they leave, so nothing falls through the cracks.",
+    category: "User Management",
+  },
+];
+
 export interface NavLink {
   label: string;
   href: string;
@@ -317,7 +441,8 @@ export interface NavLink {
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Services", href: "/services" },
-  { label: "Why Us", href: "/#why-us" },
+  { label: "About", href: "/about" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -338,4 +463,56 @@ export const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "#" },
   { label: "Facebook", href: "#" },
   { label: "Instagram", href: "#" },
+];
+
+export interface CoreValue {
+  title: string;
+  description: string;
+}
+
+export const CORE_VALUES: CoreValue[] = [
+  {
+    title: "Reliability",
+    description: "Systems that stay up, and a team that answers when you call.",
+  },
+  {
+    title: "Expertise",
+    description: "Deep, current knowledge across support, cloud, and security — not generalists guessing.",
+  },
+  {
+    title: "Customer-First",
+    description: "We scope around your business, not a one-size-fits-all package.",
+  },
+  {
+    title: "Security",
+    description: "Every engagement considers security from the start, not as an afterthought.",
+  },
+];
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+}
+
+/**
+ * TEMPLATE CUSTOMIZATION POINT: replace with real team member details and
+ * photos before launch — names and roles below are placeholders.
+ */
+export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    name: "Alex Chen",
+    role: "Lead Technician",
+    bio: "Leads day-to-day support and troubleshooting, with a focus on getting issues resolved the first time.",
+  },
+  {
+    name: "Priya Nair",
+    role: "Client Success Manager",
+    bio: "The first point of contact for scoping new engagements and keeping ongoing support running smoothly.",
+  },
+  {
+    name: "Sam Rivera",
+    role: "Cloud & Security Specialist",
+    bio: "Handles cloud migrations, Microsoft 365 environments, and access governance for every client.",
+  },
 ];
