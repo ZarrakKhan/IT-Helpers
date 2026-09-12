@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { COMPANY } from "@/lib/constants";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -53,31 +54,37 @@ export function ContactSection() {
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={staggerContainer(0.1)}
           >
-            <span className="text-sm font-semibold uppercase tracking-wider text-secondary">
+            <motion.span
+              variants={fadeUp}
+              className="text-sm font-semibold uppercase tracking-wider text-secondary"
+            >
               Get In Touch
-            </span>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl">
+            </motion.span>
+            <motion.h2
+              variants={fadeUp}
+              className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl"
+            >
               Talk to IT Helpers today
-            </h2>
-            <p className="mt-4 max-w-md text-muted">
+            </motion.h2>
+            <motion.p variants={fadeUp} className="mt-4 max-w-md text-muted">
               Tell us what you&rsquo;re working with and we&rsquo;ll get back to you with next
               steps — usually within one business hour.
-            </p>
+            </motion.p>
 
-            <dl className="mt-8 space-y-4 text-sm">
-              <div className="flex items-start gap-3">
+            <motion.dl variants={staggerContainer(0.08)} className="mt-8 space-y-4 text-sm">
+              <motion.div variants={fadeUp} className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
                 <div>
                   <dt className="font-medium text-primary">Address</dt>
                   <dd className="text-muted">{COMPANY.address}</dd>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
+              </motion.div>
+              <motion.div variants={fadeUp} className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
                 <div>
                   <dt className="font-medium text-primary">Phone</dt>
@@ -87,8 +94,8 @@ export function ContactSection() {
                     </a>
                   </dd>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
+              </motion.div>
+              <motion.div variants={fadeUp} className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
                 <div>
                   <dt className="font-medium text-primary">Email</dt>
@@ -98,15 +105,15 @@ export function ContactSection() {
                     </a>
                   </dd>
                 </div>
-              </div>
-            </dl>
+              </motion.div>
+            </motion.dl>
           </motion.div>
 
           <motion.form
             onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={viewportOnce}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="rounded-xl border border-border bg-background p-6 shadow-md sm:p-8"
             noValidate

@@ -1,95 +1,135 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { Cloud, Laptop, Server, ShieldCheck, Users, Wifi, type LucideIcon } from "lucide-react";
 
-const nodes = [
-  { x: 60, y: 60, delay: 0 },
-  { x: 260, y: 40, delay: 0.4 },
-  { x: 340, y: 160, delay: 0.8 },
-  { x: 180, y: 220, delay: 1.2 },
-  { x: 40, y: 180, delay: 0.2 },
-  { x: 220, y: 130, delay: 0.6 }, // hub
+interface SatelliteNode {
+  x: number;
+  y: number;
+  delay: number;
+  icon: LucideIcon;
+  label: string;
+}
+
+const VIEW_W = 380;
+const VIEW_H = 260;
+const HUB = { x: 190, y: 130 };
+
+const satellites: SatelliteNode[] = [
+  { x: 70, y: 55, delay: 0, icon: Laptop, label: "Devices" },
+  { x: 312, y: 55, delay: 0.15, icon: ShieldCheck, label: "Security" },
+  { x: 336, y: 195, delay: 0.3, icon: Wifi, label: "Network" },
+  { x: 190, y: 240, delay: 0.45, icon: Users, label: "Support" },
+  { x: 44, y: 195, delay: 0.6, icon: Server, label: "Infrastructure" },
 ];
 
-const edges: [number, number][] = [
-  [0, 5],
-  [1, 5],
-  [2, 5],
-  [3, 5],
-  [4, 5],
-];
+const pct = (v: number, max: number) => `${(v / max) * 100}%`;
 
 /**
- * Decorative animated network diagram — cloud/device connections. Purely
- * presentational (aria-hidden); safe to remove or restyle when rebranding.
+ * Decorative animated network diagram — devices, security, and network
+ * connecting into a central cloud hub. Purely presentational (aria-hidden);
+ * safe to remove or restyle when rebranding. Continuous loops and the
+ * traveling "data packet" dots are skipped for `prefers-reduced-motion`.
  */
 export function NetworkVisual() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <svg
-      viewBox="0 0 380 260"
-      fill="none"
-      aria-hidden="true"
-      className="h-full w-full max-w-[420px]"
-    >
-      {edges.map(([from, to], i) => {
-        const a = nodes[from];
-        const b = nodes[to];
-        return (
+    <div className="relative aspect-[380/260] w-full max-w-[420px]">
+      <svg
+        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        fill="none"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full overflow-visible"
+      >
+        <defs>
+          <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.05" />
+            <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.05" />
+          </linearGradient>
+        </defs>
+
+        {satellites.map((node, i) => (
           <motion.line
-            key={i}
-            x1={a.x}
-            y1={a.y}
-            x2={b.x}
-            y2={b.y}
+            key={`line-${i}`}
+            x1={node.x}
+            y1={node.y}
+            x2={HUB.x}
+            y2={HUB.y}
             stroke="url(#lineGradient)"
             strokeWidth={1.5}
             strokeDasharray="6 6"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.3 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1, delay: 0.2 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className={reduceMotion ? undefined : "animate-dashFlow"}
           />
-        );
-      })}
+        ))}
 
-      {nodes.map((node, i) => (
-        <g key={i}>
+        {/* Traveling data packets flowing from each device toward the cloud hub */}
+        {!reduceMotion &&
+          satellites.map((node, i) => (
+            <motion.circle
+              key={`packet-${i}`}
+              r={3}
+              fill="#67e8f9"
+              initial={{ opacity: 0 }}
+              animate={{
+                cx: [node.x, HUB.x],
+                cy: [node.y, HUB.y],
+                opacity: [0, 1, 1, 0],
+              }}
+              transition={{
+                duration: 1.8,
+                delay: 1.2 + i * 0.35,
+                repeat: Infinity,
+                repeatDelay: satellites.length * 0.35,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+
+        {/* Hub pulse rings */}
+        {!reduceMotion && (
           <motion.circle
-            cx={node.x}
-            cy={node.y}
-            r={i === 5 ? 16 : 9}
-            fill={i === 5 ? "#0891b2" : "#0f172a"}
-            stroke="#22d3ee"
-            strokeWidth={1.5}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: node.delay, ease: [0.16, 1, 0.3, 1] }}
-          />
-          <motion.circle
-            cx={node.x}
-            cy={node.y}
-            r={i === 5 ? 16 : 9}
+            cx={HUB.x}
+            cy={HUB.y}
+            r={26}
             fill="none"
             stroke="#22d3ee"
             strokeWidth={1}
-            initial={{ scale: 1, opacity: 0.6 }}
-            animate={{ scale: [1, 1.6], opacity: [0.6, 0] }}
-            transition={{
-              duration: 2.4,
-              delay: node.delay + 0.6,
-              repeat: Infinity,
-              ease: "easeOut",
-            }}
+            initial={{ scale: 1, opacity: 0.5 }}
+            animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+            transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
           />
-        </g>
-      ))}
+        )}
+      </svg>
 
-      <defs>
-        <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.1" />
-          <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.1" />
-        </linearGradient>
-      </defs>
-    </svg>
+      {/* Cloud hub */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-secondary text-white shadow-glow"
+        style={{ left: pct(HUB.x, VIEW_W), top: pct(HUB.y, VIEW_H) }}
+      >
+        <Cloud className="h-7 w-7" aria-hidden />
+      </motion.div>
+
+      {/* Satellite device / concept nodes */}
+      {satellites.map((node, i) => (
+        <motion.div
+          key={`node-${i}`}
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: node.delay, ease: [0.16, 1, 0.3, 1] }}
+          className="glass-panel absolute flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl text-secondary-light"
+          style={{ left: pct(node.x, VIEW_W), top: pct(node.y, VIEW_H) }}
+        >
+          <node.icon className="h-5 w-5" aria-hidden />
+        </motion.div>
+      ))}
+    </div>
   );
 }

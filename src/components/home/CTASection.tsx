@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { CTA, COMPANY } from "@/lib/constants";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 /** Mid-page conversion band — high-contrast call to action. */
 export function CTASection() {
@@ -16,19 +17,22 @@ export function CTASection() {
 
       <Container className="relative text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.1)}
         >
-          <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+          <motion.h2 variants={fadeUp} className="mx-auto max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
             Ready for IT support that just works?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-neutral-100/70">
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-xl text-neutral-100/70">
             Book a free consultation and we&rsquo;ll map out the right support plan for your
             business — no jargon, no lock-in pressure.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
             <Button href={CTA.consultation.href} size="lg">
               {CTA.consultation.label}
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -39,7 +43,7 @@ export function CTASection() {
             >
               or call {COMPANY.phone}
             </a>
-          </div>
+          </motion.div>
         </motion.div>
       </Container>
     </Section>
