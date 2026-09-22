@@ -42,37 +42,42 @@ export function ContactSection() {
               steps — usually within one business hour.
             </motion.p>
 
-            <motion.dl variants={staggerContainer(0.08)} className="mt-8 space-y-4 text-sm">
-              <motion.div variants={fadeUp} className="flex items-start gap-3">
+            {/*
+              A `<dl>` was used here previously, but each row nested an icon
+              alongside the `dt`/`dd` pair inside an extra wrapper `<div>` —
+              a `<dl>` may only directly contain `dt`/`dd` groups (optionally
+              each wrapped in a `<div>` containing *just* that pair), so the
+              icon sibling made it a malformed definition list. A `<ul>` has
+              no such restriction and reads identically to screen readers
+              for this "list of contact details" use case.
+            */}
+            <motion.ul variants={staggerContainer(0.08)} className="mt-8 space-y-4 text-sm">
+              <motion.li variants={fadeUp} className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
                 <div>
-                  <dt className="font-medium text-primary">Address</dt>
-                  <dd className="text-muted">{COMPANY.address}</dd>
+                  <span className="block font-medium text-primary">Address</span>
+                  <span className="text-muted">{COMPANY.address}</span>
                 </div>
-              </motion.div>
-              <motion.div variants={fadeUp} className="flex items-start gap-3">
+              </motion.li>
+              <motion.li variants={fadeUp} className="flex items-start gap-3">
                 <Phone className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
                 <div>
-                  <dt className="font-medium text-primary">Phone</dt>
-                  <dd>
-                    <a href={COMPANY.phoneHref} className="link-animated text-muted hover:text-secondary">
-                      {COMPANY.phone}
-                    </a>
-                  </dd>
+                  <span className="block font-medium text-primary">Phone</span>
+                  <a href={COMPANY.phoneHref} className="link-animated text-muted hover:text-secondary">
+                    {COMPANY.phone}
+                  </a>
                 </div>
-              </motion.div>
-              <motion.div variants={fadeUp} className="flex items-start gap-3">
+              </motion.li>
+              <motion.li variants={fadeUp} className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
                 <div>
-                  <dt className="font-medium text-primary">Email</dt>
-                  <dd>
-                    <a href={`mailto:${COMPANY.email}`} className="link-animated text-muted hover:text-secondary">
-                      {COMPANY.email}
-                    </a>
-                  </dd>
+                  <span className="block font-medium text-primary">Email</span>
+                  <a href={`mailto:${COMPANY.email}`} className="link-animated text-muted hover:text-secondary">
+                    {COMPANY.email}
+                  </a>
                 </div>
-              </motion.div>
-            </motion.dl>
+              </motion.li>
+            </motion.ul>
           </motion.div>
 
           <motion.div

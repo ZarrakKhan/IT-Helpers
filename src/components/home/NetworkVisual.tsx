@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Cloud, Laptop, Server, ShieldCheck, Users, Wifi, type LucideIcon } from "lucide-react";
 
@@ -33,6 +34,16 @@ const pct = (v: number, max: number) => `${(v / max) * 100}%`;
  */
 export function NetworkVisual() {
   const reduceMotion = useReducedMotion();
+  // Continuous (repeat: Infinity) animations are deferred until just after
+  // mount so they don't compete with hydration for main-thread time during
+  // the page's initial load — they're decorative, not part of first paint.
+  const [loopsStarted, setLoopsStarted] = useState(false);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = window.setTimeout(() => setLoopsStarted(true), 200);
+    return () => window.clearTimeout(id);
+  }, [reduceMotion]);
 
   return (
     <div className="relative aspect-[380/260] w-full max-w-[420px]">
@@ -50,6 +61,13 @@ export function NetworkVisual() {
           </linearGradient>
         </defs>
 
+        {/*
+          Connection lines fade in only (opacity, GPU-composited) rather than
+          "drawing" via animated `pathLength` — pathLength/stroke-dasharray
+          are SVG geometry properties the browser can't hand off to the
+          compositor, so 5 of them animating at once were 5 non-composited,
+          main-thread-painted animations running right at page load.
+        */}
         {satellites.map((node, i) => (
           <motion.line
             key={`line-${i}`}
@@ -60,29 +78,37 @@ export function NetworkVisual() {
             stroke="url(#lineGradient)"
             strokeWidth={1.5}
             strokeDasharray="6 6"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.2 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className={reduceMotion ? undefined : "animate-dashFlow"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
           />
         ))}
 
-        {/* Traveling data packets flowing from each device toward the cloud hub */}
+        {/*
+          Traveling data packets: animated via `x`/`y` (CSS transform) rather
+          than `cx`/`cy` (SVG attributes) so the browser can run the loop on
+          the compositor instead of re-laying-out/painting every frame.
+          `cx`/`cy` set the packet's resting position; the transform then
+          slides it from there to the hub and back.
+        */}
         {!reduceMotion &&
+          loopsStarted &&
           satellites.map((node, i) => (
             <motion.circle
               key={`packet-${i}`}
+              cx={node.x}
+              cy={node.y}
               r={3}
               fill="#67e8f9"
-              initial={{ opacity: 0 }}
+              initial={{ x: 0, y: 0, opacity: 0 }}
               animate={{
-                cx: [node.x, HUB.x],
-                cy: [node.y, HUB.y],
+                x: [0, HUB.x - node.x],
+                y: [0, HUB.y - node.y],
                 opacity: [0, 1, 1, 0],
               }}
               transition={{
                 duration: 1.8,
-                delay: 1.2 + i * 0.35,
+                delay: i * 0.35,
                 repeat: Infinity,
                 repeatDelay: satellites.length * 0.35,
                 ease: "easeInOut",
@@ -91,7 +117,7 @@ export function NetworkVisual() {
           ))}
 
         {/* Hub pulse rings */}
-        {!reduceMotion && (
+        {!reduceMotion && loopsStarted && (
           <motion.circle
             cx={HUB.x}
             cy={HUB.y}

@@ -50,7 +50,15 @@ export function Testimonials() {
               variants={fadeUp}
               className="flex h-full flex-col rounded-lg border border-border bg-background p-6 shadow-sm"
             >
-              <div className="flex gap-0.5" aria-label={`${testimonial.rating} out of 5 stars`}>
+              {/*
+                `role="img"` is required here — `aria-label` is a prohibited
+                attribute on a plain `<div>`'s implicit `role="generic"`.
+              */}
+              <div
+                className="flex gap-0.5"
+                role="img"
+                aria-label={`${testimonial.rating} out of 5 stars`}
+              >
                 {Array.from({ length: 5 }, (_, i) => (
                   <Star
                     key={i}

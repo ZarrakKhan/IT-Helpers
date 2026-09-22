@@ -94,10 +94,6 @@ const config: Config = {
           "0%, 100%": { opacity: "0.6" },
           "50%": { opacity: "1" },
         },
-        dashFlow: {
-          "0%": { strokeDashoffset: "24" },
-          "100%": { strokeDashoffset: "0" },
-        },
       },
       animation: {
         fade: "fade var(--duration-slow) var(--ease-out-premium) both",
@@ -105,7 +101,6 @@ const config: Config = {
         scaleIn: "scaleIn var(--duration-base) var(--ease-out-premium) both",
         float: "float 6s var(--ease-in-out-premium) infinite",
         pulseGlow: "pulseGlow 3s var(--ease-in-out-premium) infinite",
-        dashFlow: "dashFlow 1.2s linear infinite",
       },
       screens: {
         xs: "420px",

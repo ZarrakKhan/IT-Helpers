@@ -20,8 +20,11 @@
   --color-primary-dark: 6 11 23; /* #060b17 */
   --color-primary-light: 30 41 59; /* #1e293b */
 
-  --color-secondary: 8 145 178; /* #0891b2 — teal / tech accent */
-  --color-secondary-dark: 14 116 144; /* #0e7490 */
+  /* Darkened from the original #0891b2 — that shade only hit 3.68:1 against
+     white, failing WCAG AA (4.5:1) for the body-size text/icons that use it
+     (badges, links, button labels). This shade holds ~5.4:1. */
+  --color-secondary: 14 116 144; /* #0e7490 — teal / tech accent */
+  --color-secondary-dark: 11 90 112; /* #0b5a70 */
   --color-secondary-light: 34 211 238; /* #22d3ee */
 
   /* ---- Neutrals ---- */

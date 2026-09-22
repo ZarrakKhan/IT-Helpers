@@ -69,13 +69,17 @@ export function Hero() {
             IT Support &amp; Technology Services · Sydney, Australia
           </motion.span>
 
-          <motion.h1
-            variants={fadeUp}
-            className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
-          >
+          {/*
+            Rendered as a plain, unanimated element (not a `motion.h1`
+            variants child): this is the LCP element. Fading it in — even
+            with a GPU-friendly opacity/transform animation — delays the
+            paint Lighthouse measures as LCP by the stagger delay + fade
+            duration. Every other hero element still animates in normally.
+          */}
+          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             IT support that keeps your business{" "}
             <span className="text-gradient">connected &amp; secure</span>
-          </motion.h1>
+          </h1>
 
           <motion.p variants={fadeUp} className="mt-6 max-w-xl text-lg text-neutral-100/70">
             {COMPANY.name} is {COMPANY.tagline.toLowerCase()} — from desktop support and
@@ -120,7 +124,14 @@ export function Hero() {
             onPointerMove={handlePointerMove}
             onPointerLeave={handlePointerLeave}
             style={{ rotateX, rotateY }}
-            className="glass-panel animate-float w-full rounded-xl p-6 sm:p-10"
+            // The float bob lives here (not the `animate-float` CSS class) —
+            // that class also sets `transform`, which Framer Motion's own
+            // inline `rotateX`/`rotateY` style silently overrode, so the
+            // bob never actually rendered. Keeping both on one motion value
+            // set lets Framer Motion compose them into a single transform.
+            animate={reduceMotion ? undefined : { y: [0, -12, 0] }}
+            transition={reduceMotion ? undefined : { duration: 6, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }}
+            className="glass-panel w-full rounded-xl p-6 sm:p-10"
           >
             <NetworkVisual />
           </motion.div>
