@@ -11,9 +11,8 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 /**
  * Contact section with details card + lead-gen form.
  *
- * TEMPLATE CUSTOMIZATION POINT: the form posts JSON to
- * `NEXT_PUBLIC_FORM_ENDPOINT` (see `.env.local.example`) — point this at a
- * Formspree endpoint, a Resend-backed API route, or your own backend.
+ * The form posts JSON to `/api/contact`, which sends the submission via
+ * Resend (see `.env.local.example` for the required `RESEND_API_KEY`).
  */
 export function ContactSection() {
   return (

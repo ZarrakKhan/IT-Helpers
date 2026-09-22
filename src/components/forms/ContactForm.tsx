@@ -8,6 +8,8 @@ import { FormInput } from "@/components/forms/FormInput";
 import { Button } from "@/components/ui/Button";
 import { COMPANY } from "@/lib/constants";
 import { EASE_OUT_PREMIUM } from "@/lib/motion";
+import { validateContactForm } from "@/lib/validation";
+import type { ContactResponse } from "@/types/contact";
 
 interface ContactFormProps {
   title?: string;
@@ -29,38 +31,12 @@ interface FormValues {
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 /** Formats digits as they're typed into the common `0421 300 524` AU mobile grouping. */
 function formatAustralianPhone(raw: string): string {
   const digits = raw.replace(/\D/g, "").slice(0, 10);
   if (digits.length <= 4) return digits;
   if (digits.length <= 7) return `${digits.slice(0, 4)} ${digits.slice(4)}`;
   return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7, 10)}`;
-}
-
-function validate(values: FormValues): FormErrors {
-  const errors: FormErrors = {};
-
-  if (!values.name.trim()) errors.name = "Please enter your name.";
-
-  if (!values.email.trim()) {
-    errors.email = "Please enter your email.";
-  } else if (!EMAIL_REGEX.test(values.email.trim())) {
-    errors.email = "Please enter a valid email address.";
-  }
-
-  if (values.phone && values.phone.replace(/\D/g, "").length < 8) {
-    errors.phone = "Please enter a valid phone number.";
-  }
-
-  if (!values.message.trim()) {
-    errors.message = "Please tell us how we can help.";
-  } else if (values.message.trim().length < 10) {
-    errors.message = "Please add a few more details (10+ characters).";
-  }
-
-  return errors;
 }
 
 /**
@@ -80,6 +56,7 @@ export function ContactForm({
   const [values, setValues] = useState<FormValues>({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   function handleChange(field: keyof FormValues) {
     return (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -92,29 +69,28 @@ export function ContactForm({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const validationErrors = validate(values);
+    const validationErrors = validateContactForm(values);
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-    if (!endpoint) {
-      // eslint-disable-next-line no-console
-      console.warn("NEXT_PUBLIC_FORM_ENDPOINT is not set — form submission skipped.");
-      setStatus("error");
-      return;
-    }
-
     setStatus("submitting");
+    setErrorMessage(null);
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ ...values, service: serviceContext }),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const data: ContactResponse = await res.json();
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.message || "Something went wrong sending your message.");
+        setStatus("error");
+        return;
+      }
       setStatus("success");
       onSuccess?.();
     } catch {
+      setErrorMessage("Something went wrong sending your message.");
       setStatus("error");
     }
   }
@@ -215,8 +191,7 @@ export function ContactForm({
             <div aria-live="polite" className="mt-3 min-h-[1.25rem] text-sm">
               {status === "error" && (
                 <p className="text-danger">
-                  Something went wrong sending your message. Please try again, or call us at{" "}
-                  {COMPANY.phone}.
+                  {errorMessage} Please try again, or call us at {COMPANY.phone}.
                 </p>
               )}
             </div>

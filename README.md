@@ -52,7 +52,7 @@ tailwind.config.ts       Tailwind theme wired to design tokens
 
 ```bash
 npm install
-cp .env.local.example .env.local   # fill in NEXT_PUBLIC_FORM_ENDPOINT, etc.
+cp .env.local.example .env.local   # fill in RESEND_API_KEY, etc.
 npm run dev
 ```
 
@@ -91,8 +91,9 @@ minimal file touches:
 4. **SEO / structured data** — `src/lib/seo.ts` builds JSON-LD from
    `COMPANY`/`SERVICES` automatically; update the address, geo-coordinates,
    and ABN placeholder in `constants.ts`.
-5. **Contact form** — set `NEXT_PUBLIC_FORM_ENDPOINT` in `.env.local` to a
-   Formspree endpoint or your own API route (see `ContactSection.tsx`).
+5. **Contact form** — set `RESEND_API_KEY` in `.env.local`; submissions post
+   to `src/app/api/contact/route.ts`, which sends via Resend (see
+   `ContactSection.tsx`).
 6. **Fonts** — swap the `Inter` import in `src/app/layout.tsx` for another
    `next/font/google` family; update `--font-inter` references if renamed.
 
