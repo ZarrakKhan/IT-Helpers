@@ -24,7 +24,7 @@ export interface CompanyInfo {
 export const COMPANY: CompanyInfo = {
   name: "IT Helpers",
   tagline: "Your trusted partner in IT support",
-  website: "ithelper.com.au",
+  website: "ithelpers.com.au",
   phone: "0421 300 524",
   phoneHref: "tel:+61421300524",
   email: "ithelpers01@gmail.com",

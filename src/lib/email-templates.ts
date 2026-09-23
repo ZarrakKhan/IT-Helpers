@@ -1,4 +1,5 @@
 import type { ContactFormData } from "@/types/contact";
+import { COMPANY } from "@/lib/constants";
 import { escapeHtml } from "@/lib/utils";
 
 /**
@@ -38,7 +39,7 @@ export function contactFormEmailHtml(data: ContactFormData): string {
             </tr>
             <tr>
               <td style="background-color:#f1f5f9;padding:16px 24px;">
-                <p style="margin:0;font-size:12px;color:#64748b;">Sent from the ithelper.com.au contact form.</p>
+                <p style="margin:0;font-size:12px;color:#64748b;">Sent from the ${COMPANY.website} contact form.</p>
               </td>
             </tr>
           </table>

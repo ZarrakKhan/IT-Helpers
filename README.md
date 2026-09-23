@@ -1,6 +1,6 @@
 # IT Helpers — Website
 
-Marketing site for [IT Helpers](https://ithelper.com.au), an IT support and technology
+Marketing site for [IT Helpers](https://ithelpers.com.au), an IT support and technology
 services provider serving Sydney, Australia. Built as a reusable, rebrandable Next.js
 template.
 
