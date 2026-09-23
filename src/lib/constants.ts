@@ -27,7 +27,7 @@ export const COMPANY: CompanyInfo = {
   website: "ithelper.com.au",
   phone: "0421 300 524",
   phoneHref: "tel:+61421300524",
-  email: "support@ithelper.com.au",
+  email: "ithelpers01@gmail.com",
   address: "826 Hume Highway, Bass Hill NSW 2197",
   addressLocality: "Bass Hill",
   addressRegion: "NSW",
