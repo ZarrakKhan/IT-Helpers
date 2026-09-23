@@ -51,7 +51,7 @@ export default function FaqPage() {
 
       <Section spacing="lg">
         <Container className="mx-auto max-w-3xl">
-          <FAQAccordion items={FAQ_ITEMS} />
+          <FAQAccordion items={FAQ_ITEMS} immediate />
         </Container>
       </Section>
 

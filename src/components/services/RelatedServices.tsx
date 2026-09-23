@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import type { Service } from "@/lib/constants";
 import { SERVICE_ICON_MAP } from "@/lib/service-icons";
-import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import { fadeUp, revealTrigger, staggerContainer } from "@/lib/motion";
 
 interface RelatedServicesProps {
   services: Service[];
@@ -22,6 +22,7 @@ interface RelatedServicesProps {
  * without adding usability. Also reused as the full grid on `/services`.
  */
 export function RelatedServices({ services, heading = "Related services" }: RelatedServicesProps) {
+  const reduceMotion = useReducedMotion();
   if (services.length === 0) return null;
 
   return (
@@ -29,9 +30,7 @@ export function RelatedServices({ services, heading = "Related services" }: Rela
       <Container>
         {heading && (
           <motion.h2
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={fadeUp}
             className="text-2xl font-bold tracking-tight text-primary"
           >
@@ -40,9 +39,7 @@ export function RelatedServices({ services, heading = "Related services" }: Rela
         )}
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
+          {...revealTrigger(reduceMotion, "scroll")}
           variants={staggerContainer(0.08)}
           className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >

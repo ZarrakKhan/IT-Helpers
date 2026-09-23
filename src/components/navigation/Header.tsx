@@ -19,9 +19,16 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    // Not needed for first paint — deferring the initial read (and its
+    // forced layout via `window.scrollY`) off the critical rendering path
+    // keeps it from adding to main-thread work during the page's initial
+    // load/hydration window.
+    const timer = window.setTimeout(onScroll, 0);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(timer);
+    };
   }, []);
 
   return (

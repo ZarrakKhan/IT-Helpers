@@ -14,7 +14,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { NetworkVisual } from "@/components/home/NetworkVisual";
 import { CTA, COMPANY } from "@/lib/constants";
-import { fadeUp, staggerContainer } from "@/lib/motion";
+import { revealUp, staggerContainer } from "@/lib/motion";
 
 const trustPoints = [
   { icon: MapPin, label: "Sydney-based & on-site" },
@@ -63,7 +63,7 @@ export function Hero() {
           variants={staggerContainer(0.12, 0.05)}
         >
           <motion.span
-            variants={fadeUp}
+            variants={revealUp}
             className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-secondary-light"
           >
             IT Support &amp; Technology Services · Sydney, Australia
@@ -81,13 +81,13 @@ export function Hero() {
             <span className="text-gradient">connected &amp; secure</span>
           </h1>
 
-          <motion.p variants={fadeUp} className="mt-6 max-w-xl text-lg text-neutral-100/70">
+          <motion.p variants={revealUp} className="mt-6 max-w-xl text-lg text-neutral-100/70">
             {COMPANY.name} is {COMPANY.tagline.toLowerCase()} — from desktop support and
             Microsoft 365 to cloud migrations and cybersecurity, we manage the technology so
             you can focus on running your business.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <motion.div variants={revealUp} className="mt-8 flex flex-col gap-4 sm:flex-row">
             <Button href={CTA.primary.href} size="lg">
               {CTA.primary.label}
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -102,7 +102,7 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          <motion.ul variants={fadeUp} className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+          <motion.ul variants={revealUp} className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
             {trustPoints.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2 text-sm text-neutral-100/70">
                 <Icon className="h-4 w-4 text-secondary-light" aria-hidden />

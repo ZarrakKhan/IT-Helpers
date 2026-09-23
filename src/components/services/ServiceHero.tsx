@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Breadcrumb, type BreadcrumbItem } from "@/components/services/Breadcrumb";
 import type { Service } from "@/lib/constants";
 import { SERVICE_ICON_MAP } from "@/lib/service-icons";
-import { fadeUp, staggerContainer } from "@/lib/motion";
+import { fadeUp, revealTrigger, staggerContainer } from "@/lib/motion";
 
 interface ServiceHeroProps {
   name: string;
@@ -21,13 +21,14 @@ interface ServiceHeroProps {
 /** Compact, polished hero for a service detail page — smaller than the homepage hero. */
 export function ServiceHero({ name, description, icon, breadcrumbItems }: ServiceHeroProps) {
   const Icon = SERVICE_ICON_MAP[icon];
+  const reduceMotion = useReducedMotion();
   return (
     <section className="relative overflow-hidden bg-primary text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
       <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
 
       <Container className="relative py-14 sm:py-20">
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.1)}>
+        <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.1)}>
           <motion.div variants={fadeUp}>
             <Breadcrumb items={breadcrumbItems} variant="dark" />
           </motion.div>

@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Sparkles, Target } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import type { Service } from "@/lib/constants";
 import { COMPANY } from "@/lib/constants";
-import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import { fadeUp, revealTrigger, staggerContainer } from "@/lib/motion";
 
 interface ServiceContentSectionsProps {
   service: Service;
@@ -20,17 +20,13 @@ interface ServiceContentSectionsProps {
  * stagger-reveal pattern and are only ever rendered together.
  */
 export function ServiceContentSections({ service }: ServiceContentSectionsProps) {
+  const reduceMotion = useReducedMotion();
   return (
     <>
       <Section spacing="lg">
         <Container>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              variants={staggerContainer(0.08)}
-            >
+            <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.08)}>
               <motion.span
                 variants={fadeUp}
                 className="text-sm font-semibold uppercase tracking-wider text-secondary"
@@ -50,12 +46,7 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
               </motion.ul>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              variants={staggerContainer(0.08)}
-            >
+            <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.08)}>
               <motion.span
                 variants={fadeUp}
                 className="text-sm font-semibold uppercase tracking-wider text-secondary"
@@ -81,9 +72,7 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
       <Section spacing="md" className="bg-surface">
         <Container>
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.08)}
           >
             <motion.span
@@ -114,12 +103,7 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
       <Section spacing="md" className="relative overflow-hidden bg-primary text-white">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
         <Container className="relative text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={staggerContainer(0.1)}
-          >
+          <motion.div {...revealTrigger(reduceMotion, "scroll")} variants={staggerContainer(0.1)}>
             <motion.h2 variants={fadeUp} className="mx-auto max-w-xl text-2xl font-bold tracking-tight sm:text-3xl">
               Ready to get started with {service.name}?
             </motion.h2>

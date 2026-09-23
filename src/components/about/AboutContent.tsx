@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { CORE_VALUES, TEAM_MEMBERS } from "@/lib/constants";
-import { fadeUp, hoverLift, staggerContainer, viewportOnce } from "@/lib/motion";
+import { fadeUp, hoverLift, revealTrigger, staggerContainer } from "@/lib/motion";
 
 const VALUE_ICONS = [ShieldCheck, Sparkles, Users, Lock];
 
@@ -34,9 +34,7 @@ export function AboutContent() {
       <Section spacing="lg">
         <Container className="mx-auto max-w-3xl">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "mount")}
             variants={staggerContainer(0.1)}
             className="space-y-5 text-foreground"
           >
@@ -62,9 +60,7 @@ export function AboutContent() {
       <Section spacing="lg" className="bg-surface">
         <Container>
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.08)}
             className="mx-auto max-w-2xl text-center"
           >
@@ -77,9 +73,7 @@ export function AboutContent() {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.08)}
             className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
           >
@@ -106,9 +100,7 @@ export function AboutContent() {
       <Section spacing="lg">
         <Container>
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.08)}
             className="mx-auto max-w-2xl text-center"
           >
@@ -121,9 +113,7 @@ export function AboutContent() {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.08)}
             className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
           >
@@ -153,9 +143,7 @@ export function AboutContent() {
       <Section spacing="lg" className="bg-surface">
         <Container className="mx-auto max-w-2xl">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.08)}
           >
             <motion.h2 variants={fadeUp} className="text-2xl font-bold tracking-tight text-primary sm:text-3xl">
@@ -177,9 +165,7 @@ export function AboutContent() {
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
         <Container className="relative text-center">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
+            {...revealTrigger(reduceMotion, "scroll")}
             variants={staggerContainer(0.1)}
           >
             <motion.h2 variants={fadeUp} className="mx-auto max-w-xl text-2xl font-bold tracking-tight sm:text-3xl">
