@@ -13,14 +13,28 @@ const MotionLink = motion.create(Link);
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
 
+// Outer element: shape, focus/disabled state, and (for primary) the gradient
+// ring shell. Content lives in an inner span so the primary variant can sit a
+// solid ink pill inside a 2px accent-gradient border without extra markup at
+// the call site.
 const baseStyles =
-  "inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
+  "relative inline-flex items-center justify-center rounded-pill font-semibold tracking-[var(--tracking-heading)] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-secondary text-white shadow-md hover:bg-secondary-dark hover:shadow-glow",
-  secondary: "bg-primary text-white hover:bg-primary-light",
-  outline: "border border-border text-foreground hover:border-secondary hover:text-secondary bg-transparent",
-  ghost: "text-foreground hover:bg-surface bg-transparent",
+  primary: "bg-accent-gradient p-[2px] shadow-md hover:shadow-glow",
+  secondary: "bg-white/10 border border-white/20 hover:bg-white/15 backdrop-blur-sm",
+  outline: "bg-white/10 border border-grey-200 hover:bg-white/15 backdrop-blur-sm",
+  ghost: "hover:bg-surface bg-transparent",
+};
+
+// Inner span carries the visible fill for the primary variant (solid ink +
+// soft inset highlight); other variants leave it transparent since the outer
+// element already carries their surface.
+const innerVariantStyles: Record<ButtonVariant, string> = {
+  primary: "rounded-pill bg-ink text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]",
+  secondary: "text-white",
+  outline: "text-foreground",
+  ghost: "text-foreground",
 };
 
 // Minimum 48px min-height on every size keeps CTAs comfortably tap-friendly on mobile.
@@ -63,7 +77,12 @@ export type ButtonProps = ButtonAsButton | ButtonAsLink;
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   ({ variant = "primary", size = "md", className, children, loading = false, ...props }, ref) => {
     const reduceMotion = useReducedMotion();
-    const classes = cn(baseStyles, variantStyles[variant], sizeStyles[size], className);
+    const classes = cn(baseStyles, variantStyles[variant], className);
+    const innerClasses = cn(
+      "inline-flex w-full items-center justify-center gap-2",
+      innerVariantStyles[variant],
+      sizeStyles[size],
+    );
 
     const gestureProps = reduceMotion
       ? {}
@@ -74,10 +93,10 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         };
 
     const content = (
-      <>
+      <span className={innerClasses}>
         {loading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
         {children}
-      </>
+      </span>
     );
 
     if ("href" in props && props.href) {

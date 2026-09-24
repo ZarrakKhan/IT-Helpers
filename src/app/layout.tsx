@@ -72,8 +72,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className="flex min-h-full flex-col antialiased">
         <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {/* overflow-x-hidden lives here (not on html/body) so it can't
+            break Header's `sticky top-0` against the viewport. */}
+        <div className="flex flex-1 flex-col overflow-x-hidden">
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

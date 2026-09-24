@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Phase 5 typography base — heading tracking tokens, not yet applied to
+     any element. Use via `letter-spacing: var(--tracking-heading)` once
+     later phases touch heading components. */
+  --tracking-heading: -0.05em;
+  --tracking-heading-tight: -0.06em;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -11,14 +19,17 @@
 
   html {
     scroll-behavior: smooth;
-    /* Prevent any single element from forcing horizontal scroll on mobile. */
-    overflow-x: hidden;
+    /* No overflow-x here: per the CSS overflow spec, setting overflow-x
+       without overflow-y forces overflow-y to compute as `auto` on this
+       element, which breaks `position: sticky` (used by Header) against
+       the viewport. Horizontal-scroll clipping instead lives on the content
+       wrapper in layout.tsx, below the sticky header in the tree. */
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
-    overflow-x: hidden;
+    letter-spacing: -0.03em;
     /* Keeps content clear of the home-indicator / bottom bar on notched devices. */
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }

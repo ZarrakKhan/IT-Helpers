@@ -15,7 +15,10 @@
  */
 
 :root {
-  /* ---- Brand color ---- */
+  /* ---- Brand color ----
+     Phase 5 design system: these are being phased out in favor of the
+     neutral base + --gradient-accent below. Left defined (not deleted) —
+     other components still reference primary/secondary directly. */
   --color-primary: 15 23 42; /* #0f172a — deep tech blue */
   --color-primary-dark: 6 11 23; /* #060b17 */
   --color-primary-light: 30 41 59; /* #1e293b */
@@ -80,6 +83,54 @@
   --duration-base: 300ms;
   --duration-slow: 600ms;
   --duration-slower: 900ms;
+
+  /* -------------------------------------------------------------------
+   * Phase 5 — new design system foundation (tokens only; nothing below
+   * is wired into components yet). Neutral-first palette + one signature
+   * gradient accent, replacing the current blue/teal-led branding once
+   * later phases repoint components at it.
+   * ------------------------------------------------------------------- */
+
+  /* ---- Neutral scale (true grey, not blue-tinted) ---- */
+  --color-ink: 26 26 26; /* #1a1a1a — near-black, primary text */
+  --color-paper: 242 242 242; /* #f2f2f2 — off-white surface */
+  --color-paper-bright: 255 255 255; /* #ffffff — white surface */
+
+  /* Grey step scale — borders, muted UI, shadows */
+  --grey-100: 235 235 235; /* #ebebeb */
+  --grey-200: 214 214 214; /* #d6d6d6 */
+  --grey-300: 179 179 179; /* #b3b3b3 */
+  --grey-400: 143 143 143; /* #8f8f8f */
+  --grey-500: 107 107 107; /* #6b6b6b */
+  --grey-600: 74 74 74; /* #4a4a4a */
+  --grey-700: 51 51 51; /* #333333 */
+
+  /* ---- Signature gradient accent ("hologram" gradient) ----
+     Sparingly: thin lines, text fills (background-clip: text on headlines),
+     button shells. Never a large flat background. */
+  --gradient-accent: linear-gradient(
+    90deg,
+    #c9aaff 0%,
+    #feffbc 25%,
+    #ffcdfd 50%,
+    #b3e2ff 75%,
+    #839aff 100%
+  );
+
+  /* ---- Radius scale ---- */
+  --radius-control-sm: 0.75rem;
+  --radius-control-md: 1rem;
+  --radius-control-lg: 1.5rem;
+  --radius-container-sm: 5rem;
+  --radius-container-lg: 8rem;
+  --radius-pill: 100vw;
+
+  /* ---- Section rhythm spacing (fluid: mobile -> desktop, single token
+     per step rather than separate breakpoint values) ---- */
+  --section-space-1: clamp(2rem, 1.5rem + 2vw, 3rem); /* 48px -> 3rem */
+  --section-space-2: clamp(3rem, 2rem + 4vw, 5rem); /* -> 5rem */
+  --section-space-3: clamp(3.75rem, 2.5rem + 5vw, 6.25rem); /* -> 6.25rem */
+  --section-space-4: clamp(4rem, 2.5rem + 6vw, 8rem); /* -> 8rem */
 }
 
 /* Dark mode overrides — toggled via `.dark` class on <html> */

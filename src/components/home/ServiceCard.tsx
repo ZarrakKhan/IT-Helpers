@@ -28,19 +28,23 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
       variants={fadeUp}
       whileHover={reduceMotion ? undefined : { y: -8 }}
       transition={hoverLift}
-      className="group relative flex flex-col rounded-lg border border-border bg-background p-5 shadow-sm transition-shadow duration-300 hover:shadow-lg hover:border-secondary/40 focus-within:shadow-lg sm:p-6"
+      className="group relative flex flex-col rounded-[2.5rem] border border-grey-200 bg-paper p-5 shadow-[inset_0_-2px_1px_rgba(0,0,0,0.12),inset_0_0_1px_2px_rgba(255,255,255,0.9)] transition-[border-color] duration-300 hover:border-grey-300 focus-within:border-grey-300 sm:p-6"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-secondary/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:from-secondary/5 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-secondary/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:from-secondary/5 group-hover:opacity-100"
       />
 
       <motion.div
         whileHover={reduceMotion ? undefined : { rotate: 360 }}
         transition={{ duration: ICON_SPIN_DURATION, ease: EASE_OUT_PREMIUM }}
-        className="relative flex h-11 w-11 items-center justify-center rounded-md bg-primary text-white transition-colors duration-300 group-hover:bg-secondary"
+        className="relative flex h-12 w-12 items-center justify-center rounded-full bg-accent-gradient/30 p-[2px]"
       >
-        <Icon className="h-5 w-5" aria-hidden />
+        <div className="flex h-full w-full items-center justify-center rounded-full border border-white/10 bg-white/10 p-[3px] backdrop-blur-md">
+          <div className="flex h-full w-full items-center justify-center rounded-full bg-ink">
+            <Icon className="h-5 w-5 text-white drop-shadow-[0_0_6px_rgba(179,226,255,0.6)]" aria-hidden />
+          </div>
+        </div>
       </motion.div>
 
       <h3 className="relative mt-4 text-lg font-semibold text-primary">
