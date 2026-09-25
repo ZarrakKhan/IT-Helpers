@@ -92,7 +92,7 @@ const sections = [
     body: (
       <p>
         These terms are governed by the laws of{" "}
-        <strong className="font-semibold text-primary">New South Wales, Australia</strong>, and
+        <strong className="font-semibold text-ink">New South Wales, Australia</strong>, and
         you submit to the non-exclusive jurisdiction of its courts.
       </p>
     ),
@@ -112,11 +112,11 @@ const sections = [
     body: (
       <p>
         For any questions about these terms, contact us at{" "}
-        <a href={`mailto:${COMPANY.email}`} className="link-animated font-medium text-secondary">
+        <a href={`mailto:${COMPANY.email}`} className="link-animated font-medium text-accent-ui">
           {COMPANY.email}
         </a>{" "}
         or{" "}
-        <a href={COMPANY.phoneHref} className="link-animated font-medium text-secondary">
+        <a href={COMPANY.phoneHref} className="link-animated font-medium text-accent-ui">
           {COMPANY.phone}
         </a>
         .
@@ -140,7 +140,7 @@ export function TermsContent() {
           <motion.div variants={staggerContainer(0.06)} className="mt-8 space-y-10">
             {sections.map((section) => (
               <motion.div key={section.heading} variants={fadeUp}>
-                <h2 className="text-xl font-bold tracking-tight text-primary sm:text-2xl">
+                <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl">
                   {section.heading}
                 </h2>
                 <div className="mt-3 space-y-3 text-sm leading-relaxed text-foreground sm:text-base">

@@ -18,7 +18,7 @@ interface BreadcrumbProps {
 export function Breadcrumb({ items, variant = "light", className }: BreadcrumbProps) {
   const mutedText = variant === "dark" ? "text-neutral-100/60" : "text-muted";
   const currentText = variant === "dark" ? "text-white" : "text-foreground";
-  const linkText = variant === "dark" ? "hover:text-white" : "hover:text-secondary";
+  const linkText = variant === "dark" ? "hover:text-white" : "hover:text-accent-ui";
 
   return (
     <nav aria-label="Breadcrumb" className={cn("text-sm", className)}>

@@ -108,10 +108,10 @@ export function ContactForm({
             className="flex flex-col items-center justify-center rounded-xl border border-border bg-background p-10 text-center shadow-md"
           >
             <CheckCircle2 className="h-12 w-12 text-success" aria-hidden />
-            <h3 className="mt-4 text-xl font-semibold text-primary">Thank you!</h3>
+            <h3 className="mt-4 text-xl font-semibold text-ink">Thank you!</h3>
             <p className="mt-2 max-w-sm text-sm text-muted">
               We&rsquo;ll be in touch within 24 hours. In the meantime, feel free to call us at{" "}
-              <a href={COMPANY.phoneHref} className="link-animated font-semibold text-secondary">
+              <a href={COMPANY.phoneHref} className="link-animated font-semibold text-accent-ui">
                 {COMPANY.phone}
               </a>
               .
@@ -130,7 +130,7 @@ export function ContactForm({
           >
             {(title || description) && (
               <div className="mb-6">
-                {title && <h3 className="text-lg font-semibold text-primary">{title}</h3>}
+                {title && <h3 className="text-lg font-semibold text-ink">{title}</h3>}
                 {description && <p className="mt-1 text-sm text-muted">{description}</p>}
               </div>
             )}

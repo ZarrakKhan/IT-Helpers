@@ -26,7 +26,7 @@ const sections = [
         </p>
         <p>
           We handle personal information in accordance with the{" "}
-          <strong className="font-semibold text-primary">Australian Privacy Principles (APPs)</strong>{" "}
+          <strong className="font-semibold text-ink">Australian Privacy Principles (APPs)</strong>{" "}
           set out in the <em>Privacy Act 1988</em> (Cth).
         </p>
       </>
@@ -39,7 +39,7 @@ const sections = [
         <p>We only collect personal information you provide directly to us, specifically:</p>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>
-            <strong className="font-semibold text-primary">Contact form submissions</strong> — your
+            <strong className="font-semibold text-ink">Contact form submissions</strong> — your
             name, email address, message, and phone number if you choose to provide it.
           </li>
         </ul>
@@ -76,7 +76,7 @@ const sections = [
             href="https://resend.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="link-animated font-medium text-secondary"
+            className="link-animated font-medium text-accent-ui"
           >
             Resend
           </a>
@@ -119,7 +119,7 @@ const sections = [
             href="https://www.oaic.gov.au"
             target="_blank"
             rel="noopener noreferrer"
-            className="link-animated font-medium text-secondary"
+            className="link-animated font-medium text-accent-ui"
           >
             Office of the Australian Information Commissioner (OAIC)
           </a>
@@ -143,11 +143,11 @@ const sections = [
       <p>
         For any questions about this privacy policy or how your personal information is handled,
         contact us at{" "}
-        <a href={`mailto:${COMPANY.email}`} className="link-animated font-medium text-secondary">
+        <a href={`mailto:${COMPANY.email}`} className="link-animated font-medium text-accent-ui">
           {COMPANY.email}
         </a>{" "}
         or{" "}
-        <a href={COMPANY.phoneHref} className="link-animated font-medium text-secondary">
+        <a href={COMPANY.phoneHref} className="link-animated font-medium text-accent-ui">
           {COMPANY.phone}
         </a>
         .
@@ -175,7 +175,7 @@ export function PrivacyContent() {
           <motion.div variants={staggerContainer(0.06)} className="mt-8 space-y-10">
             {sections.map((section) => (
               <motion.div key={section.heading} variants={fadeUp}>
-                <h2 className="text-xl font-bold tracking-tight text-primary sm:text-2xl">
+                <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl">
                   {section.heading}
                 </h2>
                 <div className="mt-3 space-y-3 text-sm leading-relaxed text-foreground sm:text-base">

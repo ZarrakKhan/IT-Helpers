@@ -11,9 +11,9 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 /** Mid-page conversion band — high-contrast call to action. */
 export function CTASection() {
   return (
-    <Section spacing="md" className="relative overflow-hidden bg-primary text-white">
+    <Section spacing="md" className="relative overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-accent-ui/20 blur-3xl" />
 
       <Container className="relative text-center">
         <motion.div
@@ -22,7 +22,10 @@ export function CTASection() {
           viewport={viewportOnce}
           variants={staggerContainer(0.1)}
         >
-          <motion.h2 variants={fadeUp} className="mx-auto max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+          <motion.h2
+            variants={fadeUp}
+            className="text-gradient mx-auto max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl"
+          >
             Ready for IT support that just works?
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-xl text-neutral-100/70">

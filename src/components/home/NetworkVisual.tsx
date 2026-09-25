@@ -54,10 +54,19 @@ export function NetworkVisual() {
         className="absolute inset-0 h-full w-full overflow-visible"
       >
         <defs>
-          <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.05" />
-            <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.05" />
+          {/*
+            userSpaceOnUse with fixed viewBox coordinates, not the default
+            objectBoundingBox: objectBoundingBox derives its gradient vector
+            from each individual shape's own bounding box, which is
+            zero-width for an exactly vertical line (e.g. the Support node
+            sits directly below the hub) — that degenerates the gradient
+            transform and the stroke silently fails to paint in most
+            browsers, even though the line element itself is correct.
+          */}
+          <linearGradient id="lineGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2={VIEW_W} y2={VIEW_H}>
+            <stop offset="0%" stopColor="#b3e2ff" stopOpacity="0.05" />
+            <stop offset="50%" stopColor="#b3e2ff" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#b3e2ff" stopOpacity="0.05" />
           </linearGradient>
         </defs>
 
@@ -99,7 +108,7 @@ export function NetworkVisual() {
               cx={node.x}
               cy={node.y}
               r={3}
-              fill="#67e8f9"
+              fill="#b3e2ff"
               initial={{ x: 0, y: 0, opacity: 0 }}
               animate={{
                 x: [0, HUB.x - node.x],
@@ -123,7 +132,7 @@ export function NetworkVisual() {
             cy={HUB.y}
             r={26}
             fill="none"
-            stroke="#22d3ee"
+            stroke="#b3e2ff"
             strokeWidth={1}
             initial={{ scale: 1, opacity: 0.5 }}
             animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
@@ -132,25 +141,33 @@ export function NetworkVisual() {
         )}
       </svg>
 
-      {/* Cloud hub */}
+      {/*
+        Cloud hub — centering lives in Framer Motion's own x/y (not the Tailwind
+        -translate-x-1/2 utility): this is a `motion.div` that also animates
+        `scale`, and Framer Motion takes over the whole `transform` property via
+        inline style once it manages any transform value, silently discarding a
+        class-based `transform: translate(...)`. Keeping x/y constant at "-50%"
+        alongside the scale keyframes lets Framer Motion compose both into one
+        transform instead of one silently overwriting the other.
+      */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.6, x: "-50%", y: "-50%" }}
+        animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
         transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-secondary text-white shadow-glow"
+        className="absolute flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-ui text-white shadow-glow"
         style={{ left: pct(HUB.x, VIEW_W), top: pct(HUB.y, VIEW_H) }}
       >
         <Cloud className="h-7 w-7" aria-hidden />
       </motion.div>
 
-      {/* Satellite device / concept nodes */}
+      {/* Satellite device / concept nodes — same x/y-in-Framer-Motion centering as the hub above. */}
       {satellites.map((node, i) => (
         <motion.div
           key={`node-${i}`}
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.6, x: "-50%", y: "-50%" }}
+          animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
           transition={{ duration: 0.5, delay: node.delay, ease: [0.16, 1, 0.3, 1] }}
-          className="glass-panel absolute flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl text-secondary-light"
+          className="glass-panel absolute flex h-10 w-10 items-center justify-center rounded-xl text-accent-sky"
           style={{ left: pct(node.x, VIEW_W), top: pct(node.y, VIEW_H) }}
         >
           <node.icon className="h-5 w-5" aria-hidden />

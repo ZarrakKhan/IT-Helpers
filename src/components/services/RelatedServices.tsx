@@ -26,13 +26,13 @@ export function RelatedServices({ services, heading = "Related services" }: Rela
   if (services.length === 0) return null;
 
   return (
-    <Section spacing="md" className="bg-surface">
+    <Section spacing="md" className="bg-paper-bright">
       <Container>
         {heading && (
           <motion.h2
             {...revealTrigger(reduceMotion, "scroll")}
             variants={fadeUp}
-            className="text-2xl font-bold tracking-tight text-primary"
+            className="text-2xl font-bold tracking-tight text-ink"
           >
             {heading}
           </motion.h2>
@@ -49,14 +49,14 @@ export function RelatedServices({ services, heading = "Related services" }: Rela
               <motion.div key={service.slug} variants={fadeUp}>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group flex h-full flex-col rounded-lg border border-border bg-background p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:shadow-lg"
+                  className="group flex h-full flex-col rounded-lg border border-border bg-paper-bright p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-grey-300 hover:shadow-lg"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-white transition-colors duration-300 group-hover:bg-secondary">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-md bg-ink text-white transition-colors duration-300 group-hover:bg-accent-ui">
                     <Icon className="h-5 w-5" aria-hidden />
                   </span>
-                  <h3 className="mt-3 font-semibold text-primary">{service.name}</h3>
+                  <h3 className="mt-3 font-semibold text-ink">{service.name}</h3>
                   <p className="mt-1.5 flex-1 text-sm text-muted">{service.description}</p>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary">
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-ui">
                     View details
                     <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
                   </span>

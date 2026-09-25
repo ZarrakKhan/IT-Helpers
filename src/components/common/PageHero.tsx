@@ -16,9 +16,9 @@ export function PageHero({ title, description, breadcrumbItems }: PageHeroProps)
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-primary text-white">
+    <section className="relative overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
-      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-accent-ui/20 blur-3xl" />
 
       <Container className="relative py-14 sm:py-20">
         <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.1)}>

@@ -51,10 +51,10 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-primary text-white">
+    <section className="relative overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-      <div className="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-secondary/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-accent-ui/20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-accent-ui/10 blur-3xl" />
 
       <Container className="relative grid grid-cols-1 items-center gap-12 py-20 sm:py-28 lg:grid-cols-2 lg:py-32">
         <motion.div
@@ -64,7 +64,7 @@ export function Hero() {
         >
           <motion.span
             variants={revealUp}
-            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-secondary-light"
+            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-accent-sky"
           >
             IT Support &amp; Technology Services · Sydney, Australia
           </motion.span>
@@ -96,7 +96,7 @@ export function Hero() {
               href={CTA.secondary.href}
               size="lg"
               variant="outline"
-              className="border-white/20 text-white hover:border-secondary-light hover:text-secondary-light"
+              className="border-white/20 text-white hover:border-accent-sky hover:text-accent-sky"
             >
               {CTA.secondary.label}
             </Button>
@@ -105,7 +105,7 @@ export function Hero() {
           <motion.ul variants={revealUp} className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
             {trustPoints.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2 text-sm text-neutral-100/70">
-                <Icon className="h-4 w-4 text-secondary-light" aria-hidden />
+                <Icon className="h-4 w-4 text-accent-sky" aria-hidden />
                 {label}
               </li>
             ))}

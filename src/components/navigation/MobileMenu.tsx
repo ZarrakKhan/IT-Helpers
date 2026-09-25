@@ -19,7 +19,7 @@ export function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="inline-flex h-12 w-12 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui"
       >
         {open ? <X className="h-6 w-6" aria-hidden /> : <Menu className="h-6 w-6" aria-hidden />}
       </button>
@@ -32,7 +32,7 @@ export function MobileMenu() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-0 right-0 top-full overflow-hidden border-t border-white/10 bg-primary shadow-lg"
+            className="absolute left-0 right-0 top-full overflow-hidden border-t border-white/10 bg-ink shadow-lg"
           >
             <nav aria-label="Mobile" className="flex flex-col gap-1 px-4 py-4">
               {NAV_LINKS.map((link) => (

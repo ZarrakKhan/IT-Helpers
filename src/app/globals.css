@@ -35,11 +35,11 @@
   }
 
   ::selection {
-    @apply bg-secondary/30 text-primary;
+    @apply bg-accent-ui/30 text-ink;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-secondary ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-accent-ui ring-offset-2 ring-offset-background;
   }
 }
 
@@ -53,7 +53,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary-light to-secondary;
+    @apply bg-accent-gradient bg-clip-text text-transparent;
   }
 
   .glass-panel {

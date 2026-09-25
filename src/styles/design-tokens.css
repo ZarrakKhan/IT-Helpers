@@ -74,7 +74,7 @@
   --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
   --shadow-md: 0 4px 16px -4px rgb(15 23 42 / 0.12);
   --shadow-lg: 0 12px 32px -8px rgb(15 23 42 / 0.18);
-  --shadow-glow: 0 0 40px -8px rgb(8 145 178 / 0.45);
+  --shadow-glow: 0 0 40px -8px rgb(76 95 214 / 0.45); /* accent-ui glow, was teal */
 
   /* ---- Motion timings ---- */
   --ease-out-premium: cubic-bezier(0.16, 1, 0.3, 1);
@@ -116,6 +116,21 @@
     #b3e2ff 75%,
     #839aff 100%
   );
+
+  /* Single accent color for small interactive UI (links, focus rings, active
+     indicators, icons) that must read on BOTH --color-ink and --color-paper.
+     The gradient's own stops are pastel — great as a text-fill on dark
+     surfaces (~6.6–16.8:1 against ink) but too light for AA on paper
+     (~2.3:1). This is the indigo stop (#839aff) darkened, the same move
+     already made for the old --color-secondary teal, so it clears 3:1+
+     against both surfaces (~4.8:1 on paper, ~3.3:1 on ink). */
+  --color-accent-ui: 76 95 214; /* #4c5fd6 */
+
+  /* Accent for small text/icons that only ever sit ON --color-ink (dark
+     hero/section badges, trust-point icons, etc.) — the actual sky-blue
+     gradient stop, used directly since ink gives it ~12.6:1 contrast, well
+     past AA even at small sizes. Do not use this one on light surfaces. */
+  --color-accent-sky: 179 226 255; /* #b3e2ff */
 
   /* ---- Radius scale ---- */
   --radius-control-sm: 0.75rem;

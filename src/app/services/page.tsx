@@ -32,7 +32,7 @@ export default function ServicesIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <section className="bg-primary text-white">
+      <section className="bg-ink text-white">
         <Container className="py-14 sm:py-20">
           <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Services", href: "/services" }]} variant="dark" />
           <h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">Our IT Services</h1>

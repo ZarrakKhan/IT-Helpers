@@ -11,7 +11,7 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 /** Grid showcase of IT Helpers' services with icon, name, and description. */
 export function Services() {
   return (
-    <Section id="services" spacing="lg" className="bg-surface">
+    <Section id="services" spacing="lg" className="bg-paper-bright">
       <Container>
         <motion.div
           initial="hidden"
@@ -22,13 +22,13 @@ export function Services() {
         >
           <motion.span
             variants={fadeUp}
-            className="text-sm font-semibold uppercase tracking-wider text-secondary"
+            className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
           >
             What We Do
           </motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl"
+            className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
           >
             Full-scope IT services for your business
           </motion.h2>

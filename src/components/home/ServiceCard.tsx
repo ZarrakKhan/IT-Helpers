@@ -32,7 +32,7 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-secondary/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:from-secondary/5 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-accent-ui/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:from-accent-ui/5 group-hover:opacity-100"
       />
 
       <motion.div
@@ -47,8 +47,8 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
         </div>
       </motion.div>
 
-      <h3 className="relative mt-4 text-lg font-semibold text-primary">
-        <Link href={`/services/${service.slug}`} className="link-animated hover:text-secondary">
+      <h3 className="relative mt-4 text-lg font-semibold text-ink">
+        <Link href={`/services/${service.slug}`} className="link-animated hover:text-accent-ui">
           {service.name}
         </Link>
       </h3>
@@ -59,7 +59,7 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
         aria-controls={detailsId}
-        className="relative mt-4 inline-flex min-h-[48px] items-center gap-1.5 self-start text-sm font-semibold text-secondary transition-colors hover:text-secondary-dark"
+        className="relative mt-4 inline-flex min-h-[48px] items-center gap-1.5 self-start text-sm font-semibold text-accent-ui transition-colors hover:text-ink"
       >
         {expanded ? "Show less" : "Learn more"}
         <ChevronDown
@@ -81,11 +81,11 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
           >
             <div className="mt-4 space-y-4 border-t border-border pt-4 text-sm">
               <div>
-                <p className="font-semibold text-primary">What&rsquo;s included</p>
+                <p className="font-semibold text-ink">What&rsquo;s included</p>
                 <ul className="mt-2 space-y-1.5">
                   {service.whatsIncluded.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-muted">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-secondary" aria-hidden />
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent-ui" aria-hidden />
                       {item}
                     </li>
                   ))}
@@ -93,7 +93,7 @@ export function ServiceCard({ service, icon: Icon }: ServiceCardProps) {
               </div>
               <Link
                 href={`/services/${service.slug}#contact`}
-                className="inline-flex min-h-[48px] items-center gap-1.5 text-sm font-semibold text-secondary transition-colors hover:text-secondary-dark"
+                className="inline-flex min-h-[48px] items-center gap-1.5 text-sm font-semibold text-accent-ui transition-colors hover:text-ink"
               >
                 Get this service
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden />

@@ -23,9 +23,9 @@ export function ServiceHero({ name, description, icon, breadcrumbItems }: Servic
   const Icon = SERVICE_ICON_MAP[icon];
   const reduceMotion = useReducedMotion();
   return (
-    <section className="relative overflow-hidden bg-primary text-white">
+    <section className="relative overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
-      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-accent-ui/20 blur-3xl" />
 
       <Container className="relative py-14 sm:py-20">
         <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.1)}>
@@ -34,7 +34,7 @@ export function ServiceHero({ name, description, icon, breadcrumbItems }: Servic
           </motion.div>
 
           <motion.div variants={fadeUp} className="mt-6 flex items-center gap-4">
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-secondary text-white shadow-glow">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent-ui text-white shadow-glow">
               <Icon className="h-7 w-7" aria-hidden />
             </span>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>

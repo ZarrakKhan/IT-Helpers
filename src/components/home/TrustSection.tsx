@@ -35,7 +35,7 @@ const bulletPoints = [
 function StatValue({ countTo, prefix = "", suffix = "" }: Pick<Stat, "countTo" | "prefix" | "suffix">) {
   const { ref, value } = useCountUp<HTMLParagraphElement>({ end: countTo ?? 0 });
   return (
-    <p ref={ref} className="text-3xl font-bold tabular-nums text-primary">
+    <p ref={ref} className="text-3xl font-bold tabular-nums text-ink">
       {prefix}
       {Math.round(value)}
       {suffix}
@@ -57,13 +57,13 @@ export function TrustSection() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-wider text-secondary"
+              className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
             >
               Why Businesses Choose Us
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl"
+              className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
             >
               A responsive, security-first IT partner
             </motion.h2>
@@ -79,7 +79,7 @@ export function TrustSection() {
             >
               {bulletPoints.map((item) => (
                 <motion.li key={item} variants={fadeUp} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" />
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-ui" />
                   {item}
                 </motion.li>
               ))}
@@ -97,14 +97,14 @@ export function TrustSection() {
               <motion.div
                 key={stat.label}
                 variants={fadeUp}
-                className="rounded-lg border border-border bg-surface p-6"
+                className="rounded-lg border border-border bg-paper p-6"
               >
-                <stat.icon className="h-6 w-6 text-secondary" aria-hidden />
+                <stat.icon className="h-6 w-6 text-accent-ui" aria-hidden />
                 <div className="mt-3 text-right">
                   {stat.countTo !== undefined ? (
                     <StatValue countTo={stat.countTo} prefix={stat.prefix} suffix={stat.suffix} />
                   ) : (
-                    <p className="text-3xl font-bold text-primary">{stat.value}</p>
+                    <p className="text-3xl font-bold text-ink">{stat.value}</p>
                   )}
                   <p className="mt-1 text-xs text-muted">{stat.label}</p>
                 </div>

@@ -18,7 +18,7 @@ export type ButtonSize = "sm" | "md" | "lg";
 // solid ink pill inside a 2px accent-gradient border without extra markup at
 // the call site.
 const baseStyles =
-  "relative inline-flex items-center justify-center rounded-pill font-semibold tracking-[var(--tracking-heading)] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
+  "relative inline-flex items-center justify-center rounded-pill font-semibold tracking-[var(--tracking-heading)] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: "bg-accent-gradient p-[2px] shadow-md hover:shadow-glow",

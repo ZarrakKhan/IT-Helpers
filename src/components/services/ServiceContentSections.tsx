@@ -29,17 +29,17 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
             <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.08)}>
               <motion.span
                 variants={fadeUp}
-                className="text-sm font-semibold uppercase tracking-wider text-secondary"
+                className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
               >
                 What&rsquo;s Included
               </motion.span>
-              <motion.h2 variants={fadeUp} className="mt-3 text-2xl font-bold tracking-tight text-primary sm:text-3xl">
+              <motion.h2 variants={fadeUp} className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
                 Everything covered under {service.name}
               </motion.h2>
               <motion.ul variants={staggerContainer(0.08)} className="mt-6 space-y-3">
                 {service.whatsIncluded.map((item) => (
                   <motion.li key={item} variants={fadeUp} className="flex items-start gap-3 text-sm text-foreground">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-ui" aria-hidden />
                     {item}
                   </motion.li>
                 ))}
@@ -49,17 +49,17 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
             <motion.div {...revealTrigger(reduceMotion, "mount")} variants={staggerContainer(0.08)}>
               <motion.span
                 variants={fadeUp}
-                className="text-sm font-semibold uppercase tracking-wider text-secondary"
+                className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
               >
                 Why {COMPANY.name}
               </motion.span>
-              <motion.h2 variants={fadeUp} className="mt-3 text-2xl font-bold tracking-tight text-primary sm:text-3xl">
+              <motion.h2 variants={fadeUp} className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
                 Built around your business
               </motion.h2>
               <motion.ul variants={staggerContainer(0.08)} className="mt-6 space-y-3">
                 {service.benefits.map((item) => (
                   <motion.li key={item} variants={fadeUp} className="flex items-start gap-3 text-sm text-foreground">
-                    <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
+                    <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-accent-ui" aria-hidden />
                     {item}
                   </motion.li>
                 ))}
@@ -69,7 +69,7 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
         </Container>
       </Section>
 
-      <Section spacing="md" className="bg-surface">
+      <Section spacing="md" className="bg-paper">
         <Container>
           <motion.div
             {...revealTrigger(reduceMotion, "scroll")}
@@ -77,11 +77,11 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
           >
             <motion.span
               variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-wider text-secondary"
+              className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
             >
               Perfect For
             </motion.span>
-            <motion.h2 variants={fadeUp} className="mt-3 text-2xl font-bold tracking-tight text-primary sm:text-3xl">
+            <motion.h2 variants={fadeUp} className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
               Typical use cases
             </motion.h2>
             <motion.div variants={staggerContainer(0.08)} className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
@@ -89,9 +89,9 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
                 <motion.div
                   key={item}
                   variants={fadeUp}
-                  className="rounded-lg border border-border bg-background p-5 shadow-sm"
+                  className="rounded-lg border border-border bg-paper-bright p-5 shadow-sm"
                 >
-                  <Target className="h-5 w-5 text-secondary" aria-hidden />
+                  <Target className="h-5 w-5 text-accent-ui" aria-hidden />
                   <p className="mt-3 text-sm text-foreground">{item}</p>
                 </motion.div>
               ))}
@@ -100,7 +100,7 @@ export function ServiceContentSections({ service }: ServiceContentSectionsProps)
         </Container>
       </Section>
 
-      <Section spacing="md" className="relative overflow-hidden bg-primary text-white">
+      <Section spacing="md" className="relative overflow-hidden bg-ink text-white">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
         <Container className="relative text-center">
           <motion.div {...revealTrigger(reduceMotion, "scroll")} variants={staggerContainer(0.1)}>

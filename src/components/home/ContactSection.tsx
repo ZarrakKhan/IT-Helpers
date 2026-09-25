@@ -16,7 +16,7 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
  */
 export function ContactSection() {
   return (
-    <Section id="contact" spacing="lg" className="bg-surface">
+    <Section id="contact" spacing="lg" className="bg-paper-bright">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <motion.div
@@ -27,13 +27,13 @@ export function ContactSection() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-wider text-secondary"
+              className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
             >
               Get In Touch
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl"
+              className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
             >
               Talk to IT Helpers today
             </motion.h2>
@@ -53,26 +53,26 @@ export function ContactSection() {
             */}
             <motion.ul variants={staggerContainer(0.08)} className="mt-8 space-y-4 text-sm">
               <motion.li variants={fadeUp} className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-accent-ui" aria-hidden />
                 <div>
-                  <span className="block font-medium text-primary">Address</span>
+                  <span className="block font-medium text-ink">Address</span>
                   <span className="text-muted">{COMPANY.address}</span>
                 </div>
               </motion.li>
               <motion.li variants={fadeUp} className="flex items-start gap-3">
-                <Phone className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
+                <Phone className="mt-0.5 h-5 w-5 shrink-0 text-accent-ui" aria-hidden />
                 <div>
-                  <span className="block font-medium text-primary">Phone</span>
-                  <a href={COMPANY.phoneHref} className="link-animated text-muted hover:text-secondary">
+                  <span className="block font-medium text-ink">Phone</span>
+                  <a href={COMPANY.phoneHref} className="link-animated text-muted hover:text-accent-ui">
                     {COMPANY.phone}
                   </a>
                 </div>
               </motion.li>
               <motion.li variants={fadeUp} className="flex items-start gap-3">
-                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden />
+                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-accent-ui" aria-hidden />
                 <div>
-                  <span className="block font-medium text-primary">Email</span>
-                  <a href={`mailto:${COMPANY.email}`} className="link-animated text-muted hover:text-secondary">
+                  <span className="block font-medium text-ink">Email</span>
+                  <a href={`mailto:${COMPANY.email}`} className="link-animated text-muted hover:text-accent-ui">
                     {COMPANY.email}
                   </a>
                 </div>

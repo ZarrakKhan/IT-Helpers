@@ -14,7 +14,7 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
  */
 export function Testimonials() {
   return (
-    <Section spacing="lg" className="bg-surface">
+    <Section spacing="lg" className="bg-paper">
       <Container>
         <motion.div
           initial="hidden"
@@ -25,13 +25,13 @@ export function Testimonials() {
         >
           <motion.span
             variants={fadeUp}
-            className="text-sm font-semibold uppercase tracking-wider text-secondary"
+            className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
           >
             What Clients Say
           </motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl"
+            className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
           >
             Trusted by Sydney businesses
           </motion.h2>
@@ -48,7 +48,7 @@ export function Testimonials() {
             <motion.figure
               key={testimonial.name}
               variants={fadeUp}
-              className="flex h-full flex-col rounded-lg border border-border bg-background p-6 shadow-sm"
+              className="flex h-full flex-col rounded-lg border border-border bg-paper-bright p-6 shadow-sm"
             >
               {/*
                 `role="img"` is required here — `aria-label` is a prohibited
@@ -64,7 +64,7 @@ export function Testimonials() {
                     key={i}
                     className={
                       i < testimonial.rating
-                        ? "h-4 w-4 fill-secondary text-secondary"
+                        ? "h-4 w-4 fill-accent-ui text-accent-ui"
                         : "h-4 w-4 text-border"
                     }
                     aria-hidden
@@ -77,7 +77,7 @@ export function Testimonials() {
               </blockquote>
 
               <figcaption className="mt-5 border-t border-border pt-4">
-                <p className="font-semibold text-primary">{testimonial.name}</p>
+                <p className="font-semibold text-ink">{testimonial.name}</p>
                 <p className="text-xs text-muted">
                   {testimonial.role} · {testimonial.company}
                 </p>

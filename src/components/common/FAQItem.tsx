@@ -27,11 +27,11 @@ export function FAQItem({ item, isOpen, onToggle }: FAQItemProps) {
           onClick={onToggle}
           aria-expanded={isOpen}
           aria-controls={panelId}
-          className="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left text-base font-semibold text-primary transition-colors hover:text-secondary"
+          className="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left text-base font-semibold text-ink transition-colors hover:text-accent-ui"
         >
           {item.question}
           <Plus
-            className={`h-5 w-5 shrink-0 text-secondary transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+            className={`h-5 w-5 shrink-0 text-accent-ui transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
             aria-hidden
           />
         </button>

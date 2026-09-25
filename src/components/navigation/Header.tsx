@@ -37,15 +37,15 @@ export function Header() {
         "sticky top-0 z-50 w-full border-b transition-colors duration-300",
         scrolled
           ? "border-white/10 bg-ink/40 backdrop-blur-[40px] shadow-md"
-          : "border-transparent bg-primary",
+          : "border-transparent bg-ink",
       )}
     >
       <Container className="relative flex h-18 items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-md"
+          className="flex items-center gap-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui rounded-md"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-secondary text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-accent-ui text-white">
             <Wrench className="h-5 w-5" aria-hidden />
           </span>
           <span className="text-lg font-bold tracking-tight">{COMPANY.name}</span>

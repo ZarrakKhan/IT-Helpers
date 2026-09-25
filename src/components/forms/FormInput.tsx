@@ -43,11 +43,11 @@ export function FormInput({ label, name, error, helperText, className, ...props 
 
   const borderClasses = error
     ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgb(220_38_38_/_0.12)]"
-    : "border-border focus:border-secondary focus:shadow-[0_0_0_3px_rgb(8_145_178_/_0.12)]";
+    : "border-border focus:border-accent-ui focus:shadow-[0_0_0_3px_rgb(76_95_214_/_0.12)]";
 
   return (
     <div>
-      <label htmlFor={fieldId} className="text-sm font-medium text-primary">
+      <label htmlFor={fieldId} className="text-sm font-medium text-ink">
         {label}
         {props.required && <span className="text-danger"> *</span>}
       </label>

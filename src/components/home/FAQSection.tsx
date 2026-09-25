@@ -23,13 +23,13 @@ export function FAQSection() {
         >
           <motion.span
             variants={fadeUp}
-            className="text-sm font-semibold uppercase tracking-wider text-secondary"
+            className="text-sm font-semibold uppercase tracking-wider text-accent-ui"
           >
             FAQ
           </motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mt-3 text-3xl font-bold tracking-tight text-primary sm:text-4xl"
+            className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
           >
             Frequently asked questions
           </motion.h2>
@@ -46,7 +46,7 @@ export function FAQSection() {
         >
           <Link
             href="/faq"
-            className="link-animated inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-secondary-dark"
+            className="link-animated inline-flex items-center gap-1.5 text-sm font-semibold text-accent-ui hover:text-ink"
           >
             View all FAQs
             <ArrowRight className="h-3.5 w-3.5" aria-hidden />

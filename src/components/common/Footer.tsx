@@ -11,12 +11,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-primary-dark text-neutral-100/70">
+    <footer className="border-t border-white/10 bg-ink text-neutral-100/70">
       <Container className="py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link href="/" className="flex items-center gap-2 text-white">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-secondary text-white">
+              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-accent-ui text-white">
                 <Wrench className="h-5 w-5" aria-hidden />
               </span>
               <span className="text-lg font-bold tracking-tight">{COMPANY.name}</span>
@@ -29,7 +29,7 @@ export function Footer() {
                   key={platform}
                   href="#"
                   aria-label={platform}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-colors hover:border-secondary hover:text-secondary"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-colors hover:border-accent-sky hover:text-accent-sky"
                 >
                   <SocialIcon platform={platform} className="h-4 w-4" />
                 </a>
@@ -72,17 +72,17 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
             <ul className="mt-4 space-y-3 text-sm">
               <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-sky" aria-hidden />
                 <span>{COMPANY.address}</span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0 text-secondary" aria-hidden />
+                <Phone className="h-4 w-4 shrink-0 text-accent-sky" aria-hidden />
                 <a href={COMPANY.phoneHref} className="link-animated transition-colors hover:text-white">
                   {COMPANY.phone}
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-secondary" aria-hidden />
+                <Mail className="h-4 w-4 shrink-0 text-accent-sky" aria-hidden />
                 <a href={`mailto:${COMPANY.email}`} className="link-animated transition-colors hover:text-white">
                   {COMPANY.email}
                 </a>

@@ -47,7 +47,7 @@ const config: Config = {
         muted: withOpacity("--color-muted"),
         border: withOpacity("--color-border"),
         surface: withOpacity("--color-surface"),
-        // Phase 5 design system foundation — not yet referenced by components.
+        // Phase 5 design system foundation.
         ink: withOpacity("--color-ink"),
         paper: withOpacity("--color-paper"),
         "paper-bright": withOpacity("--color-paper-bright"),
@@ -60,6 +60,8 @@ const config: Config = {
           600: withOpacity("--grey-600"),
           700: withOpacity("--grey-700"),
         },
+        "accent-ui": withOpacity("--color-accent-ui"),
+        "accent-sky": withOpacity("--color-accent-sky"),
       },
       backgroundImage: {
         "accent-gradient": "var(--gradient-accent)",
