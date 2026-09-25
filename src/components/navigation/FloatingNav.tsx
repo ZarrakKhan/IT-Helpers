@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { NAV_LINKS, CTA } from "@/lib/constants";
+import { NAV_LINKS, CTA, COMPANY } from "@/lib/constants";
 import { EASE_OUT_PREMIUM, staggerContainer, fadeUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -21,7 +21,9 @@ const RIGHT_LINKS = NAV_LINKS.slice(3);
 /**
  * Floating nav: three separate glass elements (logo circle, Menu pill, Get
  * Support button) sitting side by side with visible gaps — not one merged
- * capsule. Clicking Menu reveals a second, independent glass panel below
+ * capsule — plus a plain "IT Helpers" gradient-text label between the logo
+ * and Menu pill (not its own glass element, just a text sibling in the gap).
+ * Clicking Menu reveals a second, independent glass panel below
  * the row (the row itself never resizes), so none of the previous phases'
  * shape-morph complexity (constant vs. animated border-radius, `layout`
  * FLIP, stale-paint-on-resize) applies here at all — the row is static,
@@ -113,10 +115,12 @@ export function FloatingNav() {
               aria-hidden
               className="pointer-events-none absolute -inset-1.5 rounded-full bg-accent-gradient opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-70"
             />
-            <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-ink/75 shadow-lg backdrop-blur-xl">
-              <Image src="/logo.png" alt="" width={96} height={96} className="h-8 w-8 object-contain" />
+            <span className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-ink/75 shadow-lg backdrop-blur-xl">
+              <Image src="/logo.png" alt="" width={96} height={96} className="h-11 w-11 object-contain" />
             </span>
           </Link>
+
+          <span className="text-gradient shrink-0 whitespace-nowrap text-xl font-semibold">{COMPANY.name}</span>
 
           {/* Menu pill — hamburger/X glyph + label, toggles the panel below. */}
           <button
