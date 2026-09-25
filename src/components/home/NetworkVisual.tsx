@@ -154,10 +154,10 @@ export function NetworkVisual() {
         initial={{ opacity: 0, scale: 0.6, x: "-50%", y: "-50%" }}
         animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
         transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-ui text-white shadow-glow"
+        className="absolute flex h-14 w-14 items-center justify-center rounded-2xl bg-paper-bright text-ink shadow-[0_0_40px_-8px_rgba(255,255,255,0.5)]"
         style={{ left: pct(HUB.x, VIEW_W), top: pct(HUB.y, VIEW_H) }}
       >
-        <Cloud className="h-7 w-7" aria-hidden />
+        <Cloud className="h-9 w-9" aria-hidden />
       </motion.div>
 
       {/* Satellite device / concept nodes — same x/y-in-Framer-Motion centering as the hub above. */}
@@ -170,7 +170,7 @@ export function NetworkVisual() {
           className="glass-panel absolute flex h-10 w-10 items-center justify-center rounded-xl text-accent-sky"
           style={{ left: pct(node.x, VIEW_W), top: pct(node.y, VIEW_H) }}
         >
-          <node.icon className="h-5 w-5" aria-hidden />
+          <node.icon className="h-6 w-6" aria-hidden />
         </motion.div>
       ))}
     </div>

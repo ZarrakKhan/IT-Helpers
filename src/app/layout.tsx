@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
-import { Header } from "@/components/navigation/Header";
+import { FloatingNav } from "@/components/navigation/FloatingNav";
 import { Footer } from "@/components/common/Footer";
 import { COMPANY } from "@/lib/constants";
 import { generateLocalBusinessSchema, generateOrganizationSchema } from "@/lib/seo";
@@ -71,9 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body className="flex min-h-full flex-col antialiased">
-        <Header />
-        {/* overflow-x-hidden lives here (not on html/body) so it can't
-            break Header's `sticky top-0` against the viewport. */}
+        <FloatingNav />
         <div className="flex flex-1 flex-col overflow-x-hidden">
           <main className="flex-1">{children}</main>
           <Footer />

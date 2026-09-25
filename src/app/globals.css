@@ -21,9 +21,8 @@
     scroll-behavior: smooth;
     /* No overflow-x here: per the CSS overflow spec, setting overflow-x
        without overflow-y forces overflow-y to compute as `auto` on this
-       element, which breaks `position: sticky` (used by Header) against
-       the viewport. Horizontal-scroll clipping instead lives on the content
-       wrapper in layout.tsx, below the sticky header in the tree. */
+       element. Horizontal-scroll clipping instead lives on the content
+       wrapper in layout.tsx. */
   }
 
   body {

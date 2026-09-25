@@ -12,6 +12,7 @@ import {
 import { ArrowRight, ShieldCheck, Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { BackgroundVideo } from "@/components/common/BackgroundVideo";
 import { NetworkVisual } from "@/components/home/NetworkVisual";
 import { CTA, COMPANY } from "@/lib/constants";
 import { revealUp, staggerContainer } from "@/lib/motion";
@@ -52,11 +53,29 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-ink text-white">
+      {/*
+        Ambient background layer: the video (or its poster, before the
+        deferred load kicks in / under reduced motion) sits behind the
+        gradient overlay, which in turn sits behind the existing grid
+        texture and glow blobs — all absolutely positioned siblings before
+        the `relative` Container below, so DOM order alone determines
+        stacking (no z-index needed). The video's own opacity is dimmed
+        (rather than relying on the overlay alone) because the source
+        footage is quite bright — the overlay by itself at a legible
+        strength wasn't enough to tame it; verified visually.
+      */}
+      <BackgroundVideo
+        mp4="/assets/video/hero-video.mp4"
+        webm="/assets/video/hero-video.webm"
+        poster="/assets/images/hero-video-poster.jpg"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-35"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/65 via-ink/75 to-ink/85" />
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
       <div className="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-accent-ui/20 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-accent-ui/10 blur-3xl" />
 
-      <Container className="relative grid grid-cols-1 items-center gap-12 py-20 sm:py-28 lg:grid-cols-2 lg:py-32">
+      <Container className="relative grid grid-cols-1 items-start gap-12 py-20 sm:py-28 lg:grid-cols-2 lg:py-32">
         <motion.div
           initial="hidden"
           animate="visible"
