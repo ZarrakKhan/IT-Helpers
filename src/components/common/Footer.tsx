@@ -2,9 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone, Wrench } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SocialIcon, type SocialPlatform } from "@/components/common/SocialIcon";
-import { COMPANY, NAV_LINKS, SERVICES } from "@/lib/constants";
-
-const socialPlatforms: SocialPlatform[] = ["LinkedIn", "Facebook", "Instagram"];
+import { COMPANY, NAV_LINKS, SERVICE_CATEGORIES, SOCIAL_LINKS } from "@/lib/constants";
 
 /** Site footer — company info, quick links, contact, and legal. */
 export function Footer() {
@@ -23,15 +21,16 @@ export function Footer() {
             </Link>
             <p className="mt-4 max-w-xs text-sm">{COMPANY.tagline}</p>
             <div className="mt-6 flex gap-3">
-              {/* TEMPLATE CUSTOMIZATION POINT: link to real social profiles. */}
-              {socialPlatforms.map((platform) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
-                  key={platform}
-                  href="#"
-                  aria-label={platform}
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition-colors hover:border-accent-sky hover:text-accent-sky"
                 >
-                  <SocialIcon platform={platform} className="h-4 w-4" />
+                  <SocialIcon platform={social.label as SocialPlatform} className="h-4 w-4" />
                 </a>
               ))}
             </div>
@@ -55,13 +54,13 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
             <ul className="mt-4 space-y-3 text-sm">
-              {SERVICES.slice(0, 5).map((service) => (
-                <li key={service.slug}>
+              {SERVICE_CATEGORIES.map((category) => (
+                <li key={category.slug}>
                   <Link
-                    href={`/services/${service.slug}`}
+                    href={`/services#${category.slug}`}
                     className="link-animated transition-colors hover:text-white"
                   >
-                    {service.name}
+                    {category.title}
                   </Link>
                 </li>
               ))}

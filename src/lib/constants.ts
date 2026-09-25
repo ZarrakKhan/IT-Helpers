@@ -48,10 +48,15 @@ export interface Service {
     | "shield"
     | "device"
     | "migration"
-    | "users"
     | "remote"
     | "consulting"
-    | "m365";
+    | "m365"
+    | "website"
+    | "apps"
+    | "ai"
+    | "social"
+    | "marketing"
+    | "data";
   /** Shown in the service card's expandable "Learn more" details, and on the service detail page. */
   whatsIncluded: string[];
   /** Why choose IT Helpers for this specific service — shown on the detail page. */
@@ -60,6 +65,8 @@ export interface Service {
   useCases: string[];
   /** ~155-160 char summary used for the detail page's meta description. */
   metaDescription: string;
+  /** Optional disclaimer shown directly on the service's detail page, next to its description. */
+  caveat?: string;
 }
 
 export const SERVICES: Service[] = [
@@ -89,7 +96,8 @@ export const SERVICES: Service[] = [
   {
     slug: "microsoft-365",
     name: "Microsoft 365",
-    description: "M365, Entra ID, Intune, and Active Directory setup & management.",
+    description:
+      "Set up and manage your Microsoft 365 accounts, devices, and security — so your team has the right access, on the right devices, without the licensing guesswork.",
     icon: "m365",
     whatsIncluded: [
       "M365 tenant setup & licensing",
@@ -225,29 +233,6 @@ export const SERVICES: Service[] = [
       "Server, system, and data migrations for Sydney businesses — planned around your business hours, with integrity checks at every step.",
   },
   {
-    slug: "user-management",
-    name: "User Management",
-    description: "Onboarding, offboarding, access management, and license management.",
-    icon: "users",
-    whatsIncluded: [
-      "Onboarding & offboarding workflows",
-      "License allocation & management",
-      "Access reviews & permission audits",
-    ],
-    benefits: [
-      "New starters and leavers processed consistently",
-      "No orphaned accounts or unused licenses",
-      "Clear audit trail for access changes",
-    ],
-    useCases: [
-      "Businesses with regular staff turnover",
-      "Teams managing licenses across multiple systems",
-      "Organisations needing a formal offboarding checklist",
-    ],
-    metaDescription:
-      "Onboarding, offboarding, and license management for Sydney businesses — consistent processes so no account or license slips through the cracks.",
-  },
-  {
     slug: "remote-onsite-support",
     name: "Remote & On-Site Support",
     description: "Flexible support options tailored to your needs.",
@@ -293,6 +278,146 @@ export const SERVICES: Service[] = [
     metaDescription:
       "Strategic IT consulting and advisory services for Sydney businesses — a technology roadmap tied to your goals, not just the latest trends.",
   },
+  {
+    slug: "website-development",
+    name: "Website Development",
+    description: "Modern, fast, mobile-first business websites — from design through to launch.",
+    icon: "website",
+    whatsIncluded: [
+      "Custom website design & build",
+      "Booking & customer portal integration",
+      "SEO-friendly structure from day one",
+    ],
+    benefits: [
+      "A site built around how your business actually works",
+      "Fast load times and mobile-first design",
+      "Structured for search visibility, not just looks",
+    ],
+    useCases: [
+      "Businesses without a website, or working off an outdated one",
+      "Teams needing online booking or customer accounts",
+      "Anyone wanting their site to actually generate leads",
+    ],
+    metaDescription:
+      "Modern, fast, mobile-first business websites for Sydney businesses — designed, built, and launched by IT Helpers.",
+  },
+  {
+    slug: "custom-applications",
+    name: "SaaS & Custom Applications",
+    description: "Internal tools, customer portals, and custom software built around your business.",
+    icon: "apps",
+    whatsIncluded: [
+      "Custom dashboards & internal tools",
+      "Booking & workflow systems",
+      "API integrations & database-driven apps",
+    ],
+    benefits: [
+      "Software built for how you work, not the other way around",
+      "One partner for the whole build, not a freelancer patchwork",
+      "Ongoing support after launch, not a handoff and goodbye",
+    ],
+    useCases: [
+      "Businesses outgrowing spreadsheets or manual processes",
+      "Teams needing a customer or staff portal",
+      "Anyone needing systems that talk to each other via API",
+    ],
+    metaDescription:
+      "Custom internal tools, dashboards, and business applications for Sydney businesses, built and supported by IT Helpers.",
+  },
+  {
+    slug: "ai-automation",
+    name: "AI Automation",
+    description: "AI assistants and workflow automation that handle the repetitive work.",
+    icon: "ai",
+    whatsIncluded: [
+      "AI-assisted customer response & lead follow-up",
+      "Workflow automation (n8n-based)",
+      "Document & data processing automation",
+    ],
+    benefits: [
+      "Time back from repetitive manual work",
+      "Faster response to leads and enquiries",
+      "Automation that fits your existing tools, not a rip-and-replace",
+    ],
+    useCases: [
+      "Businesses missing leads due to slow follow-up",
+      "Teams doing the same manual task repeatedly",
+      "Anyone curious what AI automation could actually do for them",
+    ],
+    metaDescription:
+      "AI automation and workflow tools for Sydney businesses — automate the repetitive, keep humans in control. From IT Helpers.",
+  },
+  {
+    slug: "social-media-management",
+    name: "Social Media Management",
+    description: "Social media presence and posting handled for you, consistently.",
+    icon: "social",
+    whatsIncluded: [
+      "Content calendar & scheduled posting",
+      "Profile setup & brand consistency across platforms",
+      "Basic community management (replies, messages)",
+    ],
+    benefits: [
+      "A consistent presence without eating up your time",
+      "Content that matches your actual brand, not generic templates",
+      "One less thing on your plate every week",
+    ],
+    useCases: [
+      "Businesses with no time to post consistently",
+      "Teams wanting a professional, on-brand social presence",
+      "Anyone who's started and stalled on social media before",
+    ],
+    metaDescription:
+      "Social media management and content scheduling for Sydney businesses — consistent, on-brand, handled by IT Helpers.",
+  },
+  {
+    slug: "online-marketing",
+    name: "Online Marketing & Paid Ads",
+    description: "Google Ads, Meta Ads, and AdSense setup and management that's actually tracked.",
+    icon: "marketing",
+    whatsIncluded: [
+      "Google Ads & Meta Ads campaign setup",
+      "AdSense integration where relevant",
+      "Performance tracking & monthly reporting",
+    ],
+    benefits: [
+      "Ad spend tied to actual results, not guesswork",
+      "Campaigns managed by someone who'll explain what's working",
+      "No lock-in agencies or hidden fees",
+    ],
+    useCases: [
+      "Businesses wanting to generate leads through paid ads",
+      "Sites with traffic but no clear conversion path",
+      "Anyone who's tried ads themselves and wants it done properly",
+    ],
+    metaDescription:
+      "Google Ads, Meta Ads, and AdSense management for Sydney businesses — campaigns tracked and reported clearly, by IT Helpers.",
+  },
+  {
+    slug: "data-services",
+    name: "Data Services",
+    description: "Data transfer, recovery, and cleanup — done carefully.",
+    icon: "data",
+    whatsIncluded: [
+      "Device-to-device & cloud data transfer",
+      "Data recovery & retrieval",
+      "Data organisation & cleanup",
+    ],
+    benefits: [
+      "Careful handling of data that matters to you",
+      "Straightforward transfer when you get a new device",
+      "Honest assessment before any recovery attempt",
+    ],
+    useCases: [
+      "Moving to a new computer or phone",
+      "A drive or device that's failed or is behaving oddly",
+      "Old data that needs sorting or cleaning up",
+    ],
+    metaDescription:
+      "Data transfer, recovery, and cleanup services for Sydney businesses and individuals, from IT Helpers.",
+    caveat:
+      "Recovery isn't guaranteed in every case — we'll always give you an honest assessment before starting.",
+  },
 ];
 
 export function getServiceBySlug(slug: string): Service | undefined {
@@ -309,6 +434,86 @@ export function getRelatedServices(slug: string, limit = 3): Service[] {
   const rotated = [...others.slice(currentIndex), ...others.slice(0, currentIndex)];
   return rotated.slice(0, limit);
 }
+
+export interface ServiceCategory {
+  slug: string;
+  title: string;
+  /** Short "why we're different" pitch shown as the category's collapsed-state copy. */
+  pitch: string;
+  /** `Service.slug` values grouped under this category, in display order. */
+  serviceSlugs: string[];
+}
+
+/**
+ * Groups `SERVICES` into browsable categories for the `/services` accordion.
+ * Every `SERVICES` slug must appear in exactly one category — there's no
+ * runtime check for that, so keep this list in sync when services change.
+ */
+export const SERVICE_CATEGORIES: ServiceCategory[] = [
+  {
+    slug: "it-support-troubleshooting",
+    title: "IT Support & Troubleshooting",
+    pitch:
+      "Most IT problems aren't complicated — they just need someone who actually picks up the phone. We fix the cause, not just the symptom, and we're on standby whether it's a quick remote fix or a device that needs hands-on attention.",
+    serviceSlugs: ["it-support", "device-setup", "remote-onsite-support"],
+  },
+  {
+    slug: "cloud-microsoft-365",
+    title: "Cloud & Microsoft 365",
+    pitch:
+      "Cloud setup done right the first time means no wasted licensing, no messy migrations, and systems that actually talk to each other. We plan around how you work now — not a generic template — so nothing gets left half-configured.",
+    serviceSlugs: ["microsoft-365", "cloud-solutions", "system-migrations"],
+  },
+  {
+    slug: "cybersecurity-networking",
+    title: "Cybersecurity & Networking",
+    pitch:
+      "Security that's built in from day one, not bolted on after something goes wrong. No fear tactics, no upselling — just practical protection and a network that stays up.",
+    serviceSlugs: ["cybersecurity", "networking"],
+  },
+  {
+    slug: "websites-custom-software",
+    title: "Websites & Custom Software",
+    pitch:
+      "Your website and internal tools should work as hard as you do. We build both — fast, professional sites and the custom software behind the scenes — as one connected system, not separate vendors who don't talk to each other.",
+    serviceSlugs: ["website-development", "custom-applications"],
+  },
+  {
+    slug: "ai-automation",
+    title: "AI Automation",
+    pitch:
+      "Automation that actually keeps working — lead follow-up, document processing, customer responses — running quietly in the background so nothing falls through the cracks, without you having to manage it day to day.",
+    serviceSlugs: ["ai-automation"],
+  },
+  {
+    slug: "social-media-management",
+    title: "Social Media Management",
+    pitch:
+      "A consistent, on-brand presence without it eating up your week. Content calendar, scheduled posting, and someone actually replying — handled for you, not a generic template on autopilot.",
+    serviceSlugs: ["social-media-management"],
+  },
+  {
+    slug: "online-marketing-ads",
+    title: "Online Marketing & Paid Ads",
+    pitch:
+      "Ad spend tied to results you can actually see. Google Ads, Meta Ads, and AdSense set up and managed by someone who'll explain what's working and what isn't — no lock-in, no guesswork.",
+    serviceSlugs: ["online-marketing"],
+  },
+  {
+    slug: "data-services",
+    title: "Data Services",
+    pitch:
+      "Your data matters, and we treat it that way — careful transfers, honest recovery attempts, and cleanup that actually makes things easier to find.",
+    serviceSlugs: ["data-services"],
+  },
+  {
+    slug: "it-consulting",
+    title: "IT Consulting",
+    pitch:
+      "A roadmap tied to your actual business goals, not the latest tech trend. Vendor-neutral advice, budget planning that avoids surprises, and a second opinion when you need one.",
+    serviceSlugs: ["it-consulting"],
+  },
+];
 
 export interface Testimonial {
   name: string;
@@ -426,12 +631,6 @@ export const FAQ_ITEMS: FaqItem[] = [
       "That's most of who we work with — small and mid-sized teams that need reliable IT support without hiring a full-time IT person. We act as your IT department, as much or as little as you need.",
     category: "IT Support",
   },
-  {
-    question: "What happens when a new employee joins or leaves?",
-    answer:
-      "We handle onboarding and offboarding as a standard workflow — provisioning accounts, licenses, and device access when someone joins, and revoking access cleanly when they leave, so nothing falls through the cracks.",
-    category: "User Management",
-  },
 ];
 
 export interface NavLink {
@@ -459,10 +658,11 @@ export const BRAND = {
 };
 
 export const SOCIAL_LINKS = [
-  // TEMPLATE CUSTOMIZATION POINT: add real profile URLs, or remove entries.
-  { label: "LinkedIn", href: "#" },
-  { label: "Facebook", href: "#" },
-  { label: "Instagram", href: "#" },
+  { label: "TikTok", href: "https://www.tiktok.com/@it.helpers" },
+  { label: "Instagram", href: "https://www.instagram.com/it.helpers/" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61574547561171" },
+  { label: "Twitter", href: "https://x.com/IT_Helpers01" },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCkKsKSFvpn16eqSnMGRc3Vg" },
 ];
 
 export interface CoreValue {

@@ -16,10 +16,12 @@ interface ServiceHeroProps {
    * component reference across the Server → Client boundary from the page isn't allowed). */
   icon: Service["icon"];
   breadcrumbItems: BreadcrumbItem[];
+  /** Shown directly under the description, e.g. Data Services' recovery disclaimer. */
+  caveat?: string;
 }
 
 /** Compact, polished hero for a service detail page — smaller than the homepage hero. */
-export function ServiceHero({ name, description, icon, breadcrumbItems }: ServiceHeroProps) {
+export function ServiceHero({ name, description, icon, breadcrumbItems, caveat }: ServiceHeroProps) {
   const Icon = SERVICE_ICON_MAP[icon];
   const reduceMotion = useReducedMotion();
   return (
@@ -43,6 +45,15 @@ export function ServiceHero({ name, description, icon, breadcrumbItems }: Servic
           <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-lg text-neutral-100/70">
             {description}
           </motion.p>
+
+          {caveat && (
+            <motion.p
+              variants={fadeUp}
+              className="mt-3 max-w-2xl rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-neutral-100/70"
+            >
+              {caveat}
+            </motion.p>
+          )}
 
           <motion.div variants={fadeUp} className="mt-8">
             <Button href="#contact" size="lg">

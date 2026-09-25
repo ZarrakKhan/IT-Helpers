@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
 import { Breadcrumb } from "@/components/services/Breadcrumb";
-import { RelatedServices } from "@/components/services/RelatedServices";
-import { COMPANY, SERVICES } from "@/lib/constants";
+import { ServicesAccordion } from "@/components/services/ServicesAccordion";
+import { COMPANY } from "@/lib/constants";
 import { generateBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -43,7 +44,11 @@ export default function ServicesIndexPage() {
         </Container>
       </section>
 
-      <RelatedServices services={SERVICES} heading={null} />
+      <Section spacing="lg">
+        <Container className="mx-auto max-w-3xl">
+          <ServicesAccordion />
+        </Container>
+      </Section>
     </>
   );
 }

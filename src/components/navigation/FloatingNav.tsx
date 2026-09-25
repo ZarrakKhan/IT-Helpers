@@ -2,54 +2,34 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { NAV_LINKS, CTA, COMPANY } from "@/lib/constants";
+import { NAV_LINKS, CTA } from "@/lib/constants";
 import { EASE_OUT_PREMIUM, staggerContainer, fadeUp } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
-// One curve, both directions — a monotonic ease-out never overshoots, so
-// reusing it for both open and close (rather than a spring, which can
-// wobble past its target) is what guarantees no bounce on the shell resize.
-const SHELL_TRANSITION = { duration: 0.4, ease: EASE_OUT_PREMIUM };
+const ICON_TRANSITION = { duration: 0.25, ease: EASE_OUT_PREMIUM };
+const PANEL_TRANSITION = { duration: 0.3, ease: EASE_OUT_PREMIUM };
+
+// Services / About / FAQ left, Contact + Get Support right — a 4-link list
+// split into a fixed 2/2 grid rather than derived generically, since
+// `NAV_LINKS` has no natural column boundary of its own.
+const LEFT_LINKS = NAV_LINKS.slice(0, 3);
+const RIGHT_LINKS = NAV_LINKS.slice(3);
 
 /**
- * Minimal floating nav: a glass capsule ("IT Helpers" / Get Support /
- * hamburger) fixed at the top of every page. The hamburger expands the same
- * capsule into a full menu (Services/About/FAQ/Contact/Get Support, from the
- * shared `NAV_LINKS` config) rather than opening a separate dropdown or
- * modal.
+ * Floating nav: three separate glass elements (logo circle, Menu pill, Get
+ * Support button) sitting side by side with visible gaps — not one merged
+ * capsule. Clicking Menu reveals a second, independent glass panel below
+ * the row (the row itself never resizes), so none of the previous phases'
+ * shape-morph complexity (constant vs. animated border-radius, `layout`
+ * FLIP, stale-paint-on-resize) applies here at all — the row is static,
+ * and the panel is just a normal mount/unmount reveal.
  *
- * The shell's pill-to-panel shape change uses Framer Motion's `layout`
- * prop (its battle-tested FLIP implementation) for the width/height
- * resize. An earlier version hand-measured the target size via
- * `useLayoutEffect` + `getBoundingClientRect` and animated explicit
- * `width`/`height` values instead, specifically to avoid `layout`
- * distorting an *animated* `borderRadius` into a near-circle mid-transition
- * — but driving layout-triggering CSS properties (width/height) via JS on
- * every frame is also exactly the kind of change that can leave a child's
- * `background`+`padding` "gradient ring" trick stale until the next
- * unrelated repaint, which is what broke the Get Support ring after an
- * open/close cycle. `layout`'s own transform-based FLIP doesn't have that
- * failure mode.
- *
- * `borderRadius` itself is a CONSTANT 32px, not animated at all — the
- * collapsed row's padding is tuned so 32px reads as fully-rounded pill ends
- * (with real clearance around the primary Button's own 2px gradient-ring
- * border, and the hamburger toggle's focus ring, both of which a too-tight
- * fit was clipping against this shell's own `overflow-hidden`), same as
- * the expanded panel's corners. Keeping radius constant (not part of the
- * `layout` diff at all) is what makes `layout` safe to use again here: a
- * value that never changes can't be the thing FLIP's scale-transform
- * distorts.
- *
- * The inner content's own reveal (`staggerContainer`) carries a
- * `delayChildren` so items don't start appearing until the shell resize is
- * substantially through.
- *
- * No logo/wordmark here by design (branding placement is a separate,
- * later decision) — "IT Helpers" appears only as gradient text, matching
- * the Hero's `.text-gradient` treatment.
+ * The hamburger⇄X glyph is two independently animated bars (not an icon
+ * swap): closed, they sit offset above/below center; open, both rotate to
+ * ±45° and collapse onto the center line.
  */
 export function FloatingNav() {
   const [open, setOpen] = useState(false);
@@ -62,9 +42,8 @@ export function FloatingNav() {
     setOpen(false);
   }
 
-  // Returns focus to the hamburger toggle once it's the closed (hamburger)
-  // instance that's actually mounted — skipped on first mount so the page
-  // doesn't steal focus on load.
+  // Returns focus to the Menu toggle on close — skipped on first mount so
+  // the page doesn't steal focus on load.
   useEffect(() => {
     if (!mountedRef.current) {
       mountedRef.current = true;
@@ -119,38 +98,83 @@ export function FloatingNav() {
         )}
       </AnimatePresence>
 
-      <div className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
-        <motion.nav
-          aria-label="Primary"
-          layout
-          transition={SHELL_TRANSITION}
-          className="overflow-hidden rounded-[34px] border border-white/10 bg-ink/75 shadow-lg backdrop-blur-xl"
-        >
-          <div className="inline-block">
-            {open ? (
-              <div ref={expandedRef} id={panelId} className="w-[min(20rem,calc(100vw-2rem))] px-2 pb-2">
-                <div className="flex items-center justify-end p-3">
-                  <button
-                    ref={toggleRef}
-                    type="button"
-                    onClick={close}
-                    aria-expanded={true}
-                    aria-controls={panelId}
-                    aria-label="Close navigation menu"
-                    className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui"
-                  >
-                    <X className="h-5 w-5" aria-hidden />
-                  </button>
-                </div>
+      <div className="fixed inset-x-0 top-4 z-50 flex flex-col items-center gap-3 px-4">
+        <div className="flex items-center gap-3">
+          {/* Logo circle — glass button, links home only. The blurred
+              gradient glow sits in a sibling span (not clipped by the
+              circle's own overflow-hidden) so it can bleed past the
+              circle's edge on hover instead of being cut off at it. */}
+          <Link
+            href="/"
+            aria-label="IT Helpers — home"
+            className="group relative shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -inset-1.5 rounded-full bg-accent-gradient opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-70"
+            />
+            <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-ink/75 shadow-lg backdrop-blur-xl">
+              <Image src="/logo.png" alt="" width={96} height={96} className="h-8 w-8 object-contain" />
+            </span>
+          </Link>
 
-                <motion.ul
-                  variants={staggerContainer(0.06, 0.1)}
-                  initial="hidden"
-                  animate="visible"
-                  className="flex flex-col gap-1"
-                >
-                  {NAV_LINKS.map((link) => (
-                    <motion.li key={link.href} variants={fadeUp}>
+          {/* Menu pill — hamburger/X glyph + label, toggles the panel below. */}
+          <button
+            ref={toggleRef}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls={panelId}
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            className={cn(
+              "flex h-12 shrink-0 items-center gap-2 rounded-full border bg-ink/75 px-4 text-white shadow-lg backdrop-blur-xl transition-colors duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui",
+              open ? "border-accent-ui/70 ring-2 ring-accent-ui/50" : "border-white/10",
+            )}
+          >
+            <span className="relative flex h-4 w-5 shrink-0 items-center justify-center">
+              <motion.span
+                className="absolute h-0.5 w-5 rounded-full bg-white"
+                animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
+                transition={ICON_TRANSITION}
+              />
+              <motion.span
+                className="absolute h-0.5 w-5 rounded-full bg-white"
+                animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
+                transition={ICON_TRANSITION}
+              />
+            </span>
+            <span className="hidden text-sm font-medium xs:inline">Menu</span>
+          </button>
+
+          {/* Get Support — unchanged shared Button, just a standalone sibling now. */}
+          <Button href={CTA.primary.href} size="sm" className="shrink-0 whitespace-nowrap">
+            Get Support
+          </Button>
+        </div>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              key="panel"
+              id={panelId}
+              ref={expandedRef}
+              role="region"
+              aria-label="Site navigation"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={PANEL_TRANSITION}
+              className="w-[min(26rem,calc(100vw-2rem))] rounded-container-sm border border-white/10 bg-ink/90 p-6 shadow-lg backdrop-blur-xl"
+            >
+              <motion.div
+                variants={staggerContainer(0.06, 0.05)}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-2 gap-x-6 gap-y-1"
+              >
+                <div className="flex flex-col gap-1">
+                  {LEFT_LINKS.map((link) => (
+                    <motion.div key={link.href} variants={fadeUp}>
                       <Link
                         href={link.href}
                         onClick={close}
@@ -158,36 +182,31 @@ export function FloatingNav() {
                       >
                         {link.label}
                       </Link>
-                    </motion.li>
+                    </motion.div>
                   ))}
-                  <motion.li variants={fadeUp} className="mt-1">
-                    <Button href={CTA.primary.href} onClick={close} className="w-full">
+                </div>
+                <div className="flex flex-col gap-1">
+                  {RIGHT_LINKS.map((link) => (
+                    <motion.div key={link.href} variants={fadeUp}>
+                      <Link
+                        href={link.href}
+                        onClick={close}
+                        className="flex min-h-[48px] items-center rounded-md px-3 text-base font-medium text-neutral-100/90 transition-colors hover:bg-white/10 hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  ))}
+                  <motion.div variants={fadeUp}>
+                    <Button href={CTA.primary.href} onClick={close} size="sm" className="mt-1 w-full">
                       Get Support
                     </Button>
-                  </motion.li>
-                </motion.ul>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1 whitespace-nowrap px-3 py-2.5">
-                <span className="text-gradient px-2 text-sm font-semibold">{COMPANY.name}</span>
-                <Button href={CTA.primary.href} size="sm" className="whitespace-nowrap">
-                  Get Support
-                </Button>
-                <button
-                  ref={toggleRef}
-                  type="button"
-                  onClick={() => setOpen(true)}
-                  aria-expanded={false}
-                  aria-controls={panelId}
-                  aria-label="Open navigation menu"
-                  className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui"
-                >
-                  <Menu className="h-5 w-5" aria-hidden />
-                </button>
-              </div>
-            )}
-          </div>
-        </motion.nav>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

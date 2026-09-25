@@ -101,9 +101,9 @@ export function Hero() {
           </h1>
 
           <motion.p variants={revealUp} className="mt-6 max-w-xl text-lg text-neutral-100/70">
-            {COMPANY.name} is {COMPANY.tagline.toLowerCase()} — from desktop support and
-            Microsoft 365 to cloud migrations and cybersecurity, we manage the technology so
-            you can focus on running your business.
+            {COMPANY.tagline}. {COMPANY.name} manages everything from desktop support and
+            Microsoft 365 to cloud migrations and cybersecurity, so you can focus on running
+            your business.
           </motion.p>
 
           <motion.div variants={revealUp} className="mt-8 flex flex-col gap-4 sm:flex-row">

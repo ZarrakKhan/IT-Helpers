@@ -1,4 +1,4 @@
-import { COMPANY, SERVICES, TEAM_MEMBERS, TESTIMONIALS, type FaqItem, type Service, type TeamMember } from "./constants";
+import { COMPANY, SERVICES, SOCIAL_LINKS, TEAM_MEMBERS, TESTIMONIALS, type FaqItem, type Service, type TeamMember } from "./constants";
 
 /**
  * Structured data (schema.org JSON-LD) helpers — Australian local business.
@@ -9,6 +9,11 @@ import { COMPANY, SERVICES, TEAM_MEMBERS, TESTIMONIALS, type FaqItem, type Servi
 
 const SITE_URL = `https://${COMPANY.website}`;
 
+/** Social profile URLs, reused as `sameAs` on both the Organization and
+ * ProfessionalService schemas below — this is what ties those profiles to
+ * this business for Google's Knowledge Panel / entity recognition. */
+const SOCIAL_URLS = SOCIAL_LINKS.map((link) => link.href);
+
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
@@ -17,7 +22,7 @@ export function generateOrganizationSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     description:
-      "IT Helpers provides IT support, Microsoft 365, cloud, networking, and cybersecurity services for businesses across Sydney, Australia.",
+      "IT Helpers supports Sydney businesses and individuals across IT support, cloud & Microsoft 365, cybersecurity & networking, websites & custom software, AI automation, social media, online marketing, data services, and IT consulting.",
     telephone: COMPANY.phoneHref.replace("tel:", ""),
     email: COMPANY.email,
     address: {
@@ -28,6 +33,7 @@ export function generateOrganizationSchema() {
       postalCode: COMPANY.addressPostcode,
       addressCountry: COMPANY.addressCountry,
     },
+    sameAs: SOCIAL_URLS,
   };
 }
 
@@ -42,8 +48,6 @@ export function generateLocalBusinessSchema() {
     telephone: COMPANY.phoneHref.replace("tel:", ""),
     email: COMPANY.email,
     priceRange: "$$",
-    // TEMPLATE CUSTOMIZATION POINT: replace once the ABN is confirmed.
-    taxID: COMPANY.abn,
     address: {
       "@type": "PostalAddress",
       streetAddress: "826 Hume Highway",
@@ -76,7 +80,7 @@ export function generateLocalBusinessSchema() {
         closes: "17:00",
       },
     ],
-    sameAs: [] as string[],
+    sameAs: SOCIAL_URLS,
   };
 }
 

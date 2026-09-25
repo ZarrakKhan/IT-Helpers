@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: `%s | ${COMPANY.name}`,
   },
   description:
-    "IT Helpers provides IT support, Microsoft 365, cloud, networking, and cybersecurity services for businesses and individuals across Sydney, Australia.",
+    "IT Helpers supports Sydney businesses and individuals across IT support, cloud & Microsoft 365, cybersecurity & networking, websites & custom software, AI automation, social media, online marketing, data services, and IT consulting.",
   keywords: [
     "IT support Sydney",
     "Managed IT services",

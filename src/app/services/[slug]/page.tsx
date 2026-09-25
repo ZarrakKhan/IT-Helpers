@@ -23,12 +23,15 @@ export async function generateMetadata({ params }: ServicePageParams): Promise<M
   if (!service) return {};
 
   const canonical = `/services/${service.slug}`;
+  // Avoids "Data Services Services" — most service names don't already end
+  // in "Services", but at least one now does.
+  const pageTitle = service.name.endsWith("Services") ? service.name : `${service.name} Services`;
   return {
-    title: `${service.name} Services`,
+    title: pageTitle,
     description: service.metaDescription,
     alternates: { canonical },
     openGraph: {
-      title: `${service.name} Services | ${COMPANY.name}`,
+      title: `${pageTitle} | ${COMPANY.name}`,
       description: service.metaDescription,
       url: canonical,
     },
@@ -65,6 +68,7 @@ export default async function ServiceDetailPage({ params }: ServicePageParams) {
         name={service.name}
         description={service.description}
         icon={service.icon}
+        caveat={service.caveat}
         breadcrumbItems={[
           { name: "Home", href: "/" },
           { name: "Services", href: "/services" },
