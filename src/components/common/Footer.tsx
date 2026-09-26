@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone, Wrench } from "lucide-react";
+import Image from "next/image";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SocialIcon, type SocialPlatform } from "@/components/common/SocialIcon";
 import { COMPANY, NAV_LINKS, SERVICE_CATEGORIES, SOCIAL_LINKS } from "@/lib/constants";
@@ -13,11 +14,9 @@ export function Footer() {
       <Container className="py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link href="/" className="flex items-center gap-2 text-white">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-accent-ui text-white">
-                <Wrench className="h-5 w-5" aria-hidden />
-              </span>
-              <span className="text-lg font-bold tracking-tight">{COMPANY.name}</span>
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/logo.png" alt="" width={64} height={64} className="h-9 w-9 object-contain" />
+              <span className="text-gradient text-lg font-bold tracking-tight">{COMPANY.name}</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm">{COMPANY.tagline}</p>
             <div className="mt-6 flex gap-3">

@@ -19,19 +19,23 @@ const LEFT_LINKS = NAV_LINKS.slice(0, 3);
 const RIGHT_LINKS = NAV_LINKS.slice(3);
 
 /**
- * Floating nav: three separate glass elements (logo circle, Menu pill, Get
- * Support button) sitting side by side with visible gaps — not one merged
- * capsule — plus a plain "IT Helpers" gradient-text label between the logo
- * and Menu pill (not its own glass element, just a text sibling in the gap).
- * Clicking Menu reveals a second, independent glass panel below
- * the row (the row itself never resizes), so none of the previous phases'
- * shape-morph complexity (constant vs. animated border-radius, `layout`
- * FLIP, stale-paint-on-resize) applies here at all — the row is static,
- * and the panel is just a normal mount/unmount reveal.
+ * Floating nav: the logo circle is its own separate floating element, and
+ * the nav panel — one shared static glass pill — sits next to it with a
+ * small gap, containing exactly three things: the "IT Helpers" gradient
+ * label, the Get Support button, and an icon-only hamburger toggle. That
+ * shared pill never resizes (nothing animates its width/height), so none
+ * of the earlier phases' shape-morph complexity (constant vs. animated
+ * border-radius, `layout` FLIP, stale-paint-on-resize) applies here — it's
+ * just a plain rounded box sized to fit its tallest child (the Get Support
+ * button's own 2px gradient-ring), with generous padding so that ring is
+ * never at risk of the clipping bug a couple of phases back.
+ *
+ * Clicking the hamburger reveals a second, independent glass panel below
+ * the row — the row itself never resizes.
  *
  * The hamburger⇄X glyph is two independently animated bars (not an icon
  * swap): closed, they sit offset above/below center; open, both rotate to
- * ±45° and collapse onto the center line.
+ * ±45° and collapse onto the center line. Untouched from the last phase.
  */
 export function FloatingNav() {
   const [open, setOpen] = useState(false);
@@ -120,40 +124,49 @@ export function FloatingNav() {
             </span>
           </Link>
 
-          <span className="text-gradient shrink-0 whitespace-nowrap text-xl font-semibold">{COMPANY.name}</span>
+          {/* Nav panel — one shared static pill: IT Helpers label, Get
+              Support, hamburger. No overflow-hidden and nothing here
+              animates width/height, so there's nothing for a resize
+              animation to clip — padding alone (py-2.5) keeps Get
+              Support's ring clear of the pill's own edge. */}
+          <div className="flex shrink-0 items-center gap-3 rounded-full border border-white/10 bg-ink/75 px-3 py-2.5 shadow-lg backdrop-blur-xl">
+            <span className="text-gradient whitespace-nowrap px-1 text-xl font-semibold">{COMPANY.name}</span>
 
-          {/* Menu pill — hamburger/X glyph + label, toggles the panel below. */}
-          <button
-            ref={toggleRef}
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls={panelId}
-            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-            className={cn(
-              "flex h-12 shrink-0 items-center gap-2 rounded-full border bg-ink/75 px-4 text-white shadow-lg backdrop-blur-xl transition-colors duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui",
-              open ? "border-accent-ui/70 ring-2 ring-accent-ui/50" : "border-white/10",
-            )}
-          >
-            <span className="relative flex h-4 w-5 shrink-0 items-center justify-center">
-              <motion.span
-                className="absolute h-0.5 w-5 rounded-full bg-white"
-                animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
-                transition={ICON_TRANSITION}
-              />
-              <motion.span
-                className="absolute h-0.5 w-5 rounded-full bg-white"
-                animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
-                transition={ICON_TRANSITION}
-              />
-            </span>
-            <span className="hidden text-sm font-medium xs:inline">Menu</span>
-          </button>
+            <Button href={CTA.primary.href} size="sm" className="shrink-0 whitespace-nowrap">
+              Get Support
+            </Button>
 
-          {/* Get Support — unchanged shared Button, just a standalone sibling now. */}
-          <Button href={CTA.primary.href} size="sm" className="shrink-0 whitespace-nowrap">
-            Get Support
-          </Button>
+            {/* Hamburger/X toggle — icon only, no label. Unchanged from the
+                last phase: same two motion.span bars, same transition, same
+                active-state ring. Only the button's own border/background/
+                shadow were dropped, since it now sits inside the shared
+                pill's background instead of carrying its own. */}
+            <button
+              ref={toggleRef}
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls={panelId}
+              aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+              className={cn(
+                "flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white transition-colors duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ui",
+                open && "bg-white/10 ring-2 ring-accent-ui/50",
+              )}
+            >
+              <span className="relative flex h-4 w-5 shrink-0 items-center justify-center">
+                <motion.span
+                  className="absolute h-0.5 w-5 rounded-full bg-white"
+                  animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
+                  transition={ICON_TRANSITION}
+                />
+                <motion.span
+                  className="absolute h-0.5 w-5 rounded-full bg-white"
+                  animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
+                  transition={ICON_TRANSITION}
+                />
+              </span>
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>
